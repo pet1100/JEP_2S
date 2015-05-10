@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class Prices {
 
 	private byte quantity;

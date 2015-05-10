@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class invoice extends Case {
 
 	private byte tax;

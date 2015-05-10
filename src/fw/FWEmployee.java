@@ -1,5 +1,5 @@
-package FW;
-import DBE.DBAddress;
+package fw;
+import dbe.DBE.DBAddress;
 import DBE.DBE;
 
 public class FWEmployee extends DBAddress {

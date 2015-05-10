@@ -1,10 +1,10 @@
-package FW;
-import DBE.DBAddress;
+package fw;
+import dbe.DBE.DBAddress;
 import DBE.DBE;
 
-public class FWCient extends DBAddress {
+public class FWCase extends DBAddress {
 
-	public Kunde read(int id) {
+	public sager read(int id) {
 		throw new UnsupportedOperationException();
 	}
 

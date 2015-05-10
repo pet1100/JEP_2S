@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class DBAddress {
 
 	private String JDBC_DRIVER;

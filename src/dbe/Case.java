@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class Case extends DBE {
 
 	private String type;

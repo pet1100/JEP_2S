@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class Client extends DBE {
 
 	private int tlf;

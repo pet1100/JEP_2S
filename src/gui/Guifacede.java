@@ -1,3 +1,3 @@
-package GUI;
+package gui;
 public class Guifacede {
 }

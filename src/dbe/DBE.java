@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 import Timestamp;
 
 public class DBE {

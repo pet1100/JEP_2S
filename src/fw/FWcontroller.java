@@ -1,4 +1,4 @@
-package FW;
+package fw;
 import DBE.DBE;
 
 public class FWcontroller {

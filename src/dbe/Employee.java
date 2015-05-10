@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class Employee extends DBE {
 
 	private int tlf;

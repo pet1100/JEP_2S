@@ -1,4 +1,4 @@
-package DBE;
+package dbe;
 public class Offer extends Case {
 
 	private int rentalDays;
