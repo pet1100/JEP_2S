@@ -1,5 +1,5 @@
 package dbe;
-public class invoice extends Case {
+public class Invoice extends Case {
 
 	private byte tax;
 	private int total;
