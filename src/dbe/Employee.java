@@ -4,8 +4,8 @@ public class Employee extends DBE {
 	private int tlf;
 	private String lastName;
 	private byte userlevel;
-	private string passWord;
-	private string userName;
+	private String passWord;
+	private String userName;
 
 	public int getTlf() {
 		return this.tlf;
@@ -31,19 +31,19 @@ public class Employee extends DBE {
 		this.userlevel = userlevel;
 	}
 
-	public string getPassWord() {
+	public String getPassWord() {
 		return this.passWord;
 	}
 
-	public void setPassWord(string passWord) {
+	public void setPassWord(String passWord) {
 		this.passWord = passWord;
 	}
 
-	public string getUserName() {
+	public String getUserName() {
 		return this.userName;
 	}
 
-	public void setUserName(string userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 }

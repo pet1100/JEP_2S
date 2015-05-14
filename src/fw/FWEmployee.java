@@ -1,10 +1,11 @@
 package fw;
-import dbe.DBE.DBAddress;
-import DBE.DBE;
+import java.sql.ResultSet;
 
+import dbe.*;
+import java.sql.*;
 public class FWEmployee extends DBAddress {
 
-	public medarbejder read(int id) {
+	public Employee read(int id) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -16,7 +17,7 @@ public class FWEmployee extends DBAddress {
 		throw new UnsupportedOperationException();
 	}
 
-	public resultset readAll() {
+	public ResultSet readAll() {
 		throw new UnsupportedOperationException();
 	}
 }

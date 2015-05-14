@@ -1,10 +1,12 @@
 package fw;
-import dbe.DBE.DBAddress;
-import DBE.DBE;
+import java.sql.ResultSet;
+
+import dbe.*;
+import java.sql.*;
 
 public class FWCase extends DBAddress {
 
-	public sager read(int id) {
+	public Case read(int id) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -16,7 +18,7 @@ public class FWCase extends DBAddress {
 		throw new UnsupportedOperationException();
 	}
 
-	public resultset readAll() {
+	public ResultSet readAll() {
 		throw new UnsupportedOperationException();
 	}
 }

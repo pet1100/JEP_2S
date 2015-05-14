@@ -1,9 +1,13 @@
 package fw;
-import dbe.DBE.DBAddress;
+import java.util.ArrayList;
+
+import dbe.DBAddress;
+import dbe.*;
+import java.util.*;
 
 public class FWlanguage extends DBAddress {
 
-	public Array<String> read() {
+	public ArrayList<String> read() {
 		throw new UnsupportedOperationException();
 	}
 }

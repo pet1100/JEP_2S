@@ -1,5 +1,5 @@
 package dbe;
-import Timestamp;
+import time.Timestamp;
 
 public class DBE {
 
@@ -9,7 +9,7 @@ public class DBE {
 	private boolean active;
 	private String address;
 	private short zipCode;
-	private string city;
+	private String city;
 
 	public int getId() {
 		return this.id;
@@ -51,11 +51,11 @@ public class DBE {
 		this.zipCode = zipCode;
 	}
 
-	public string getCity() {
+	public String getCity() {
 		return this.city;
 	}
 
-	public void setCity(string city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 }

@@ -1,12 +1,12 @@
 package dbe;
-import java.
+import java.util.ArrayList;
+import java.util.*;
 
-import f
 
 public class CaseList extends Case {
 
 	private ArrayList<Offer> offerList;
-	private ArrayList<invoice> invoiceList;
+	private ArrayList<Invoice> invoiceList;
 
 	public ArrayList<Offer> getOfferList() {
 		return this.offerList;
@@ -16,11 +16,17 @@ public class CaseList extends Case {
 		this.offerList = offerList;
 	}
 
-	public ArrayList<invoice> getInvoiceList() {
+	public ArrayList<Invoice> getInvoiceList() {
 		return this.invoiceList;
 	}
 
-	public void setInvoiceList(ArrayList<invoice> invoiceList) {
+	public void setInvoiceList(ArrayList<Invoice> invoiceList) {
 		this.invoiceList = invoiceList;
+	}
+	public void addOffer(Offer offer){
+		offerList.add(offer);	
+	}
+	public void addInvoice(Invoice invoice){
+		invoiceList.add(invoice);
 	}
 }
