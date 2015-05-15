@@ -1,4 +1,6 @@
 package dbe;
+//@Elinor
+
 public class Prices {
 
 	private byte quantity;

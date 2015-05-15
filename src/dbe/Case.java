@@ -1,4 +1,6 @@
 package dbe;
+//@Elinor
+
 public class Case extends DBE {
 
 	private String type;

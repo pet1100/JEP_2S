@@ -1,4 +1,6 @@
 package dbe;
+//@Elinor
+
 public class Employee extends DBE {
 
 	private int tlf;
