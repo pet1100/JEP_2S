@@ -3,9 +3,12 @@ package dbe;
 
 public class DBAddress {
 
-	private String JDBC_DRIVER;
-	private String DATABASE_URL;
+	private String JDBC_DRIVER = "";
+	private String DATABASE_URL = "";
+	
+	public DBAddress(){
 
+	}
 	public String getJDBC_DRIVER() {
 		throw new UnsupportedOperationException();
 	}
