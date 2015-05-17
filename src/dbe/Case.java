@@ -1,12 +1,24 @@
 package dbe;
-public class Case extends DBE {
 
+import time.Timestamp;
+
+//@Elinor
+
+public class Case extends DBE {
 	private String type;
 	private Byte department;
 	private String noteInternal;
 	private Employee accountable;
 	private Client client;
 	private String noteExternal;
+	public Case(int id, Timestamp dateFrom, String name, String address,
+			short zipCode, String type, Byte department, Employee accountable, Client client) {
+		super(id, dateFrom, name, address, zipCode);
+			this.type = type;
+			this.department = department;
+			this.accountable = accountable;
+			this.client = client;
+	}
 
 	public String getType() {
 		return this.type;

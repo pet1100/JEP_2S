@@ -1,4 +1,6 @@
 package dbe;
+//@Elinor
+
 public class Prices {
 
 	private byte quantity;
@@ -6,7 +8,11 @@ public class Prices {
 	private int type;
 	private String headline;
 	private String bodyText;
-
+	public Prices(byte quantity,int price, int type){
+	this.quantity = quantity;
+	this.price = price;
+	this.type = type;	
+	}
 	public byte getQuantity() {
 		return this.quantity;
 	}

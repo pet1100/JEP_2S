@@ -1,4 +1,6 @@
 package dbe;
+//@Elinor
+
 import time.Timestamp;
 
 public class DBE {
@@ -10,7 +12,15 @@ public class DBE {
 	private String address;
 	private short zipCode;
 	private String city;
-
+	public DBE(int id, Timestamp dateFrom, String name, String address, short zipCode){
+		this.id = id;
+		this.dateFrom = dateFrom;
+		this.name = name;
+		this.address = address; 
+		this.zipCode = zipCode;
+		active = true;
+		//String city;	skal hentes fra db	
+	}
 	public int getId() {
 		return this.id;
 	}
