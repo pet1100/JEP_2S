@@ -7,9 +7,9 @@ import java.text.SimpleDateFormat;
 public class Timestamp  {
 	private static String stringdate;
 	private static Date datedate;
-	
-	public static void main(String[]args) throws ParseException{
-		System.out.println(convert(getTimeNow()));
+
+	public Timestamp(){
+		
 	}
 	public static Date getTimeNow() {
 		datedate = new Date();
