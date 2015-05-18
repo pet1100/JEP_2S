@@ -8,16 +8,16 @@ public class Case extends DBE {
 	private String type;
 	private Byte department;
 	private String noteInternal;
-	private Employee accountable;
-	private Client client;
+	private int employeeID;
+	private int clientID;
 	private String noteExternal;
 	public Case(int id, Timestamp dateFrom, String name, String address,
-			short zipCode, String type, Byte department, Employee accountable, Client client) {
+			short zipCode, String type, Byte department, int employeeID, int clientID) {
 		super(id, dateFrom, name, address, zipCode);
 			this.type = type;
 			this.department = department;
-			this.accountable = accountable;
-			this.client = client;
+			this.employeeID = employeeID;
+			this.clientID = clientID;
 	}
 
 	public String getType() {
@@ -44,20 +44,20 @@ public class Case extends DBE {
 		this.noteInternal = noteInternal;
 	}
 
-	public Employee getAccountable() {
-		return this.accountable;
+	public int getAccountable() {
+		return this.employeeID;
 	}
 
-	public void setAccountable(Employee accountable) {
-		this.accountable = accountable;
+	public void setAccountable(int employeeID) {
+		this.employeeID = employeeID;
 	}
 
-	public Client getClient() {
-		return this.client;
+	public int getClient() {
+		return this.clientID;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setClient(int clientID) {
+		this.clientID = clientID;
 	}
 
 	public String getNoteExternal() {
