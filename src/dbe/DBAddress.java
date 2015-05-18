@@ -1,27 +1,40 @@
 package dbe;
-//@Elinor
+import java.sql.*;
+
 
 public class DBAddress {
 
-	private String JDBC_DRIVER = "";
-	private String DATABASE_URL = "";
+	private  String JDBC_DRIVER = "com.mysql.jdbc.Driver" ;
+	private  String DATABASE_URL = "jdbc:mysql://localhost/mydb";
+	private String username = "root";
+	private String password = "hejhej123" ;
 	
-	public DBAddress(){
 
+	public DBAddress()
+	{
+		
 	}
 	public String getJDBC_DRIVER() {
-		throw new UnsupportedOperationException();
+		
+		
+		
+		return JDBC_DRIVER;
+	
 	}
 
-	public void setJDBC_DRIVER(String JDBC_DRIVER) {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	public String getDATABASE_URL() {
-		throw new UnsupportedOperationException();
+		return DATABASE_URL;
 	}
 
-	public void setDATABASE_URL(int DATABASE_URL) {
-		throw new UnsupportedOperationException();
+	public String getUsername () {
+		return username;
 	}
+
+	public String getpassword() {
+		return password;
+	}
+
+	
 }
