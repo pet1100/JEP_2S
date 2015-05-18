@@ -1,5 +1,7 @@
 package dbe;
-import Timestamp;
+//@Elinor
+
+import time.Timestamp;
 
 public class DBE {
 
@@ -9,8 +11,16 @@ public class DBE {
 	private boolean active;
 	private String address;
 	private short zipCode;
-	private string city;
-
+	private String city;
+	public DBE(int id, Timestamp dateFrom, String name, String address, short zipCode){
+		this.id = id;
+		this.dateFrom = dateFrom;
+		this.name = name;
+		this.address = address; 
+		this.zipCode = zipCode;
+		active = true;
+		//String city;	skal hentes fra db	
+	}
 	public int getId() {
 		return this.id;
 	}
@@ -51,11 +61,11 @@ public class DBE {
 		this.zipCode = zipCode;
 	}
 
-	public string getCity() {
+	public String getCity() {
 		return this.city;
 	}
 
-	public void setCity(string city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 }

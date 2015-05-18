@@ -1,15 +1,18 @@
 package fw;
-import DBE.DBE;
+import java.sql.ResultSet;
+
+import dbe.*;
+import java.sql.*;
 
 public class FWcontroller {
 
-	private resultset resultat;
+	private ResultSet resultat;
 
-	public DBE read(int id, string type) {
+	public DBE read(int id, String type) {
 		throw new UnsupportedOperationException();
 	}
 
-	public resultset readAll(string type) {
+	public ResultSet readAll(String type) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -21,11 +24,11 @@ public class FWcontroller {
 		throw new UnsupportedOperationException();
 	}
 
-	public resultset getResultat() {
+	public ResultSet getResultat() {
 		return this.resultat;
 	}
 
-	public void setResultat(resultset resultat) {
+	public void setResultat(ResultSet resultat) {
 		this.resultat = resultat;
 	}
 }

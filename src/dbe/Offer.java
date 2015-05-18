@@ -1,8 +1,23 @@
 package dbe;
+//@Elinor
+
+import java.util.*;
+
+import time.Timestamp;
+
 public class Offer extends Case {
 
 	private int rentalDays;
-	private ArrayList<Prices> price;
+	private ArrayList<Prices> priceList;
+
+	public Offer(int id, Timestamp dateFrom, String name, String address,
+			short zipCode, String type, Byte department, Employee accountable,
+			Client client, int rentalDays) {
+		super(id, dateFrom, name, address, zipCode, type, department, accountable,
+				client);
+		this.rentalDays = rentalDays;
+		priceList = new ArrayList<Prices>();
+	}
 
 	public int getRentalDays() {
 		return this.rentalDays;
@@ -12,11 +27,15 @@ public class Offer extends Case {
 		this.rentalDays = rentalDays;
 	}
 
-	public ArrayList<Prices> getPrice() {
-		return this.price;
+	public ArrayList<Prices> getPriceList() {
+		return this.priceList;
 	}
 
 	public void setPrice(ArrayList<Prices> price) {
-		this.price = price;
+		this.priceList = price;
+	}
+	
+	public void addPrice(Prices newPrice){
+		priceList.add(newPrice);
 	}
 }
