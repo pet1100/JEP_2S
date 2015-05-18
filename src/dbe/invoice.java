@@ -5,17 +5,18 @@ import time.Timestamp;
 //@Elinor
 
 public class Invoice extends Case {
-
 	private byte tax;
 	private int total;
-
 	public Invoice(int id, Timestamp dateFrom, String name, String address,
-			short zipCode, String type, Byte department, Employee accountable,
-			Client client) {
-		super(id, dateFrom, name, address, zipCode, type, department, accountable,
-				client);
+			short zipCode, String type, Byte department, int employeeID,
+			int clientID) {
+		super(id, dateFrom, name, address, zipCode, type, department, employeeID,
+				clientID);
 		// TODO Auto-generated constructor stub
 	}
+
+
+
 
 
 	public byte getTax() {

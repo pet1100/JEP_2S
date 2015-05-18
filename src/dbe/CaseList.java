@@ -8,17 +8,18 @@ import time.Timestamp;
 
 public class CaseList extends Case {
 
+	public CaseList(int id, Timestamp dateFrom, String name, String address,
+			short zipCode, String type, Byte department, int employeeID,
+			int clientID) {
+		super(id, dateFrom, name, address, zipCode, type, department, employeeID,
+				clientID);// nedarvet fra case class
+			offerList = new ArrayList<Offer>();
+			invoiceList = new ArrayList<Invoice>();
+	}
 	private ArrayList<Offer> offerList;
 	private ArrayList<Invoice> invoiceList;
 
-	public CaseList(int id, Timestamp dateFrom, String name, String address,
-			short zipCode, String type, Byte department, Employee accountable,
-			Client client) {
-		super(id, dateFrom, name, address, zipCode, type, department, accountable,
-				client);// nedarvet fra case class
-		offerList = new ArrayList<Offer>();
-		invoiceList = new ArrayList<Invoice>();
-	}
+
 	
 
 	public ArrayList<Offer> getOfferList() {
