@@ -1,5 +1,7 @@
 package dbe;
 
+import java.util.Date;
+
 import time.Timestamp;
 //@Elinor
 
@@ -10,7 +12,7 @@ public class Employee extends DBE {
 	private byte userlevel;
 	private String passWord;
 	private String userName;
-	public Employee(int id, Timestamp dateFrom, String name, String address,
+	public Employee(int id, Date dateFrom, String name, String address,
 			short zipCode,int tlf, String lastName, byte userlevel, String passWord, String userName) {
 		super(id, dateFrom, name, address, zipCode);
 		this.tlf = tlf;

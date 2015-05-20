@@ -1,5 +1,7 @@
 package dbe;
 
+import java.util.Date;
+
 import time.Timestamp;
 //@Elinor
 
@@ -7,7 +9,7 @@ public class Client extends DBE {
 	private int tlf;
 	private String lastName;
 	private String email;
-	public Client(int id, Timestamp dateFrom, String name, String address,
+	public Client(int id, Date dateFrom, String name, String address,
 			short zipCode, int tlf, String lastName, String email) {
 		super(id, dateFrom, name, address, zipCode);
 		this.tlf = tlf;

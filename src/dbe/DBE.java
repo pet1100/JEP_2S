@@ -1,23 +1,25 @@
 package dbe;
 //@Elinor
 
+import java.util.Date;
+
 import time.Timestamp;
 
 public class DBE {
 
 	private int id;
-	private Timestamp dateFrom;
+	private Date dateFrom;
 	private String name;
 	private boolean active;
 	private String address;
 	private short zipCode;
 	private String city;
-	public DBE(int id, Timestamp dateFrom, String name, String address, short zipCode){
+	public DBE(int id, Date dateFrom, String name, String address, int i){
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.name = name;
 		this.address = address; 
-		this.zipCode = zipCode;
+		this.zipCode = (short) i;
 		active = true;
 		//String city;	skal hentes fra db	
 	}
@@ -25,7 +27,7 @@ public class DBE {
 		return this.id;
 	}
 
-	public Timestamp getDateFrom() {
+	public Date getDateFrom() {
 		return this.dateFrom;
 	}
 

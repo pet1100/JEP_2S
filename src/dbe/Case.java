@@ -1,5 +1,8 @@
 package dbe;
 
+import java.sql.Time;
+import java.util.Date;
+
 import time.Timestamp;
 
 //@Elinor
@@ -13,9 +16,9 @@ public class Case extends DBE {
 	private String noteExternal;
 	
 	
-	public Case(int id, Timestamp dateFrom, String name, String address,
-			short zipCode, String type, Byte department, int employeeID, int clientID) {
-		super(id, dateFrom, name, address, zipCode);
+	public Case(int id, Date date, String name, String address,
+			int i, String type, Byte department, int employeeID, int clientID) {
+		super(id, date, name, address, i);
 			this.type = type;
 			this.department = department;
 			this.employeeID = employeeID;

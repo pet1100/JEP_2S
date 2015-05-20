@@ -9,6 +9,8 @@ import time.Timestamp;
 
 import java.sql.*;
 
+import com.mysql.jdbc.UpdatableResultSet;
+
 public class FWcontroller {
 	public static  FWCase cs = new FWCase () ;
 	static DBAddress db = new DBAddress();;
@@ -46,8 +48,14 @@ public class FWcontroller {
 //		}
 //		readCase(6);
 		
+//
+//		Case c = new Case(createCase(), Timestamp.getTimeNow(), "ydre-stillads ", "Bygmarken 108 ", 4060, "nub", null , 1, 1);
+//		c.setNoteInternal("hej med dig dette er en notat");
+//		update(c);
+//		
 		
-		create();	
+		readCase(43);
+		
 	}
 
 	private ResultSet resultat;
@@ -62,12 +70,13 @@ public class FWcontroller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void update(DBE element) {
-		throw new UnsupportedOperationException();
+	public static void update(Case c) {
+		cs.update(c);
 	}
 
-	public static void  create() {
-		cs.create();
+	public static Integer createCase() {
+	
+		return (cs.create());
 	}
 
 	public ResultSet getResultat() {
