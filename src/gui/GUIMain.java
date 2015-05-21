@@ -150,7 +150,6 @@ public class GUIMain extends GUILanguage
 		if (scrollPane.isVisible())
 		{
 			scrollPane.setVisible(false);
-			return;
 		}
 		else
 		{
@@ -250,7 +249,7 @@ public class GUIMain extends GUILanguage
 			confirm.addActionListener(actionListener.confirmChange(
 					writeClientFirstName, writeClientPhoneNumber));
 			defualtPane.add(confirm);
-
+			add(defualtPane, BorderLayout.CENTER);
 			defualtPane.setVisible(true);
 
 		}
