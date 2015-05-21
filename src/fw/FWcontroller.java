@@ -9,8 +9,6 @@ import time.Timestamp;
 
 import java.sql.*;
 
-import com.mysql.jdbc.UpdatableResultSet;
-
 public class FWcontroller {
 	public static  FWCase cs = new FWCase () ;
 	static DBAddress db = new DBAddress();;

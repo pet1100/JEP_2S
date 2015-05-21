@@ -20,12 +20,11 @@ public class GUIActionListener {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				System.out.println(writeClientFirstName.getText());
 				try {
 					int clientPhone = Integer.parseInt(writeClientPhoneNumber
 							.getText());
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e);
+				} catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(null, "Phone number is invalid");
 					return;
 				}
 				System.out.println("No return");
@@ -49,12 +48,16 @@ public class GUIActionListener {
 				"Please Enter login info", JOptionPane.OK_CANCEL_OPTION);
 
 		
-			if (result == JOptionPane.OK_OPTION && userName.getText().equals("admin")
-					&& password.getText().equals("admin")) {
+			if (result == JOptionPane.OK_OPTION && userName.getText().equals("")
+					&& password.getText().equals("")) {
 				loginTrue = true;
 			}
-			
+			else if(result == JOptionPane.OK_OPTION)
+			{
+				loginTrue = false;
+			}
 			else {
+				System.exit(1);
 				loginTrue = false;
 			}
 		} while (!loginTrue);
