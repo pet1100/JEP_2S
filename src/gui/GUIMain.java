@@ -14,22 +14,27 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class GUIMain extends GUILanguage {
 
 	protected static JPanel menuBar = new JPanel();
-
+	private GUIActionListener actionListener = new GUIActionListener();
+	
 	private JScrollPane scrollPane = new JScrollPane();
-	private JLayeredPane lp = new JLayeredPane();
+	private JLayeredPane defualtPane = new JLayeredPane();
 
 	{
+		actionListener.login();
 		scrollPane.setVisible(false);
-		lp.setVisible(false);
+		defualtPane.setVisible(false);
+		add(defualtPane, BorderLayout.CENTER);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) screenSize.getWidth() / 10 * 8;
 		int height = (int) screenSize.getHeight() / 10 * 8;
@@ -79,17 +84,17 @@ public class GUIMain extends GUILanguage {
 	}
 
 	private void makeMenuButtons() {
-		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(1, 3));
+		JPanel menuButtons = new JPanel();
+		menuButtons.setLayout(new GridLayout(1, 3));
 
-		JButton toMainMenu = new JButton(menu);
+		JButton toMainMenu = new JButton(menuLang);
 		toMainMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 
-		JButton toKunder = new JButton(client);
+		JButton toKunder = new JButton(clientLang);
 		toKunder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +102,7 @@ public class GUIMain extends GUILanguage {
 			}
 		});
 
-		JButton makeNew = new JButton(newSomething);
+		JButton makeNew = new JButton(newLang);
 		makeNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -105,23 +110,24 @@ public class GUIMain extends GUILanguage {
 			}
 		});
 
-		buttons.add(toKunder);
-		buttons.add(toMainMenu);
-		buttons.add(makeNew);
-		add(buttons, BorderLayout.SOUTH);
+		menuButtons.add(toKunder);
+		menuButtons.add(toMainMenu);
+		menuButtons.add(makeNew);
+		add(menuButtons, BorderLayout.SOUTH);
 	}
 
 	protected void showClientList() 
-	{
+	{   
+		scrollPane.removeAll();
+		defualtPane.setVisible(false);
 		if (scrollPane.isVisible())
 		{
-			scrollPane.removeAll();
 			scrollPane.setVisible(false);
 			return;
 		} 
 		else 
 		{
-			lp.setVisible(false);
+			
 			Object rowData[][] = {
 					{ "Row1-Column1", "Row1-Column2", "Row1-Column3" },
 					{ "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
@@ -136,19 +142,53 @@ public class GUIMain extends GUILanguage {
 	}
 
 	protected void showNew() {
-		if (lp.isVisible()) {
-			lp.setVisible(false);
+		defualtPane.removeAll();
+		scrollPane.setVisible(false);
+		if (defualtPane.isVisible()) {
+			
+			defualtPane.setVisible(false);
 			return;
 		}
 		else 
-		{
-			scrollPane.setVisible(false);
-			JButton top = new JButton();
-			top.setBackground(Color.green);
-			top.setBounds(20, 20, 50, 50);
-			lp.add(top, new Integer(1));
-			add(lp, BorderLayout.CENTER);
-			lp.setVisible(true);
+		{	
+			JLabel clientFirstName = new JLabel(clientLang + " " + firstNameLang);
+			clientFirstName.setBounds(20, 10, 100, 20);
+			defualtPane.add(clientFirstName);
+			
+			JTextField writeClientFirstName = new JTextField();
+			writeClientFirstName.setBounds(20, 30, 100, 20);
+			defualtPane.add(writeClientFirstName);
+			
+			JLabel clientLastName = new JLabel(clientLang + " " + lastNameLang);
+			clientLastName.setBounds(20, 60, 100, 20);
+			defualtPane.add(clientLastName);
+			
+			JTextField writeClientLastName = new JTextField();
+			writeClientLastName.setBounds(20, 80, 100, 20);
+			defualtPane.add(writeClientLastName);
+			
+			JLabel clientPhoneNumber = new JLabel(clientLang + " " + phoneLang);
+			clientPhoneNumber.setBounds(20, 110, 100, 20);
+			defualtPane.add(clientPhoneNumber);
+			
+			JTextField writeClientPhoneNumber = new JTextField();
+			writeClientPhoneNumber.setBounds(20, 130, 100, 20);
+			defualtPane.add(writeClientPhoneNumber);
+			
+			JLabel clientID = new JLabel(clientLang + "ID");
+			clientID.setBounds(1000, 10, 100, 20);
+			defualtPane.add(clientID);
+			
+			JLabel clientIDField= new JLabel("*Just an number*"); //Get ID from database when the record is made by the bottom click.
+			clientIDField.setBounds(1000, 30, 100, 20);
+			defualtPane.add(clientIDField);
+			
+			JButton confirm = new JButton(confirmLang);
+			confirm.setBounds(1000, 600, 100, 20);
+			confirm.addActionListener(actionListener.confirmChange(writeClientFirstName, writeClientPhoneNumber));
+			defualtPane.add(confirm);
+			
+			defualtPane.setVisible(true);
 			setVisible(true);
 		}
 	}

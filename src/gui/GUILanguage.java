@@ -6,22 +6,13 @@ import javax.swing.JFrame;
 public class GUILanguage extends JFrame
 {
 	
-	protected static String menu = "Menu";
-	protected static String client = "Client";
-	protected static String newSomething = "newSomething";
+	protected static String menuLang = "Menu";
+	protected static String clientLang = "Client";
+	protected static String newLang = "New";
+	protected static String firstNameLang = "First name";
+	protected static String lastNameLang = "Last name";
+	protected static String confirmLang = "Confirm";
+	protected static String phoneLang = "Phone";
 	
-	public static void setMenuLang(String s)
-	{
-		menu = s;
-	}
 	
-	public static void setClient(String s)
-	{
-		client = s;
-	}
-	
-	public static void setNew(String s)
-	{
-		newSomething = s;
-	}
 }
