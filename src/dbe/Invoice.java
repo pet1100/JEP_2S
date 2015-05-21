@@ -1,5 +1,7 @@
 package dbe;
 
+import java.util.Date;
+
 import time.Timestamp;
 
 //@Elinor
@@ -7,10 +9,10 @@ import time.Timestamp;
 public class Invoice extends Case {
 	private byte tax;
 	private int total;
-	public Invoice(int id, Timestamp dateFrom, String name, String address,
+	public Invoice(int id, Date date, String name, String address,
 			short zipCode, String type, Byte department, int employeeID,
 			int clientID) {
-		super(id, dateFrom, name, address, zipCode, type, department, employeeID,
+		super(id, date, name, address, zipCode, type, department, employeeID,
 				clientID);
 		// TODO Auto-generated constructor stub
 	}
