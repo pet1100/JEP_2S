@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,12 +21,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class GUIMain extends GUILanguage
 {
 
 	protected static JPanel menuBar = new JPanel();
 	private GUIActionListener actionListener = new GUIActionListener();
+	private GUIController guiController = new GUIController();
 
 	private JScrollPane scrollPane = new JScrollPane();
 	private JLayeredPane defualtPane = new JLayeredPane();
@@ -135,12 +138,16 @@ public class GUIMain extends GUILanguage
 		} 
 		else 
 		{
-			
-			Object rowData[][] = {
-					{ "Row1-Column1", "Row1-Column2", "Row1-Column3" },
-					{ "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
 			Object columnNames[] = { "Column One", "Column Two", "Column Three" };
-			JTable table = new JTable(rowData, columnNames);
+			DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+			
+			ResultSet rs = guiController.caseReadAll()
+					while(rs.next())
+					{
+						rowData.addRow(new Object[]
+								{ rs.getString(1), rs.getString(2), rs.getString(3) });
+					}
+			JTable table = new JTable(model);
 
 			scrollPane = new JScrollPane(table);
 			add(scrollPane, BorderLayout.CENTER);
