@@ -8,21 +8,21 @@ public class GUIController
 	
 	protected resultSet caseReadAll()
 	{
-		fwc.caseReadAll();
+		return fwc.caseReadAll();
 	}
 	
 	protected resultSet caseRead(int i)
 	{
-		fwc.caseRead(i);
+		return fwc.caseRead(i);
 	}
 	
 	protected resultSet clientReadAll()
 	{
-		fwc.clientReadAll();
+		return fwc.clientReadAll();
 	}
 	
 	protected resultSet clientRead(int i)
 	{
-		fwc.clientRead(i);
+		return fwc.clientRead(i);
 	}
 }

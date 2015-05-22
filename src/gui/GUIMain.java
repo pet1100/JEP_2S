@@ -180,17 +180,17 @@ public class GUIMain extends GUILanguage
 			model.setColumnIdentifiers(new Object[]
 			{ "ID", "Name", "Durp" });
 
-			// ResultSet rs = guiController.caseReadAll()
-			// while(rs.next())
-			// {
-			// model.addRow(new Object[]
-			// { rs.getString(1), rs.getString(2), rs.getString(3) });
-			// }
-			for (int i = 0; i < 50; i++)
-			{
-				model.addRow(new Object[]
-				{ i, "C : 2 | R : " + i, "C : 3 | R : " + i });
-			}
+			 ResultSet rs = guiController.caseReadAll();
+			 while(rs.next())
+			 {
+			 model.addRow(new Object[]
+			 { rs.getString(1), rs.getString(2), rs.getString(3) });
+			 }
+//			for (int i = 0; i < 50; i++)
+//			{
+//				model.addRow(new Object[]
+//				{ i, "C : 2 | R : " + i, "C : 3 | R : " + i });
+//			}
 
 			JTable table = new JTable(model);
 			table.addMouseListener(new MouseAdapter()
