@@ -155,136 +155,90 @@ public class GUIMain extends GUILanguage
 		if (defualtPane.isVisible()) {
 			
 			defualtPane.setVisible(false);
+			setTitle(menuLang);
 			return;
 		}
 		else 
 		{	
-			JLabel clientFirstName = new JLabel(clientLang + " " + firstNameLang);
-			clientFirstName.setBounds(20, 10, 100, 20);
-			defualtPane.add(clientFirstName);
-			
-			JTextField writeClientFirstName = new JTextField();
-			writeClientFirstName.setBounds(20, 30, 100, 20);
-			defualtPane.add(writeClientFirstName);
-			
-			JLabel clientLastName = new JLabel(clientLang + " " + lastNameLang);
-			clientLastName.setBounds(20, 60, 100, 20);
-			defualtPane.add(clientLastName);
-			
-			JTextField writeClientLastName = new JTextField();
-			writeClientLastName.setBounds(20, 80, 100, 20);
-			defualtPane.add(writeClientLastName);
-			
-			JLabel clientPhoneNumber = new JLabel(clientLang + " " + phoneLang);
-			clientPhoneNumber.setBounds(20, 110, 100, 20);
-			defualtPane.add(clientPhoneNumber);
-			
-			JTextField writeClientPhoneNumber = new JTextField();
-			writeClientPhoneNumber.setBounds(20, 130, 100, 20);
-			defualtPane.add(writeClientPhoneNumber);
-			
-			JLabel clientID = new JLabel(clientLang + "ID");
-			clientID.setBounds(1000, 10, 100, 20);
-			defualtPane.add(clientID);
-			
-			JLabel clientIDField= new JLabel("*Just an number*"); //Get ID from database when the record is made by the bottom click.
-			clientIDField.setBounds(1000, 30, 100, 20);
-			defualtPane.add(clientIDField);
-			
-			JButton confirm = new JButton(confirmLang);
-			confirm.setBounds(1000, 600, 100, 20);
-			confirm.addActionListener(actionListener.confirmChange(writeClientFirstName, writeClientPhoneNumber));
-			defualtPane.add(confirm);
+			defualtPaneRectangleReset();
 			
 			defualtPane.setVisible(true);
 			add(defualtPane);
 			setVisible(true);
-		}
+			
+			paneWidth = defualtPane.getSize().width;
+			paneHeight = defualtPane.getSize().height;
+			
+			setTitle(clientLang);
+			
+			JLabel clientFirstName = new JLabel(firstNameLang);
+			clientFirstName.setBounds(makeRectangle());
+			defualtPane.add(clientFirstName);
 
-//	protected void showNew()
-//	{
-//		defualtPaneRectangleReset();
-//		defualtPane.removeAll();
-//		scrollPane.setVisible(false);
-//		if (defualtPane.isVisible())
-//		{
-//			setTitle(menuLang);
-//			defualtPane.setVisible(false);
-//			return;
-//		}
-//		else
-//		{
-//			setTitle(clientLang);
-//			
-//			JLabel clientFirstName = new JLabel(firstNameLang);
-//			clientFirstName.setBounds(makeRectangle());
-//			defualtPane.add(clientFirstName);
-//
-//			JTextField writeClientFirstName = new JTextField();
-//			writeClientFirstName.setBounds(makeRectangle());
-//			defualtPane.add(writeClientFirstName);
-//
-//			JLabel clientLastName = new JLabel(lastNameLang);
-//			clientLastName.setBounds(makeRectangle());
-//			defualtPane.add(clientLastName);
-//
-//			JTextField writeClientLastName = new JTextField();
-//			writeClientLastName.setBounds(makeRectangle());
-//			defualtPane.add(writeClientLastName);
-//
-//			JLabel clientPhoneNumber = new JLabel(phoneLang);
-//			clientPhoneNumber.setBounds(makeRectangle());
-//			defualtPane.add(clientPhoneNumber);
-//
-//			JTextField writeClientPhoneNumber = new JTextField();
-//			writeClientPhoneNumber.setBounds(makeRectangle());
-//			defualtPane.add(writeClientPhoneNumber);
-//
-//			JLabel clientPostNr = new JLabel(postNrLang);
-//			clientPostNr.setBounds(makeRectangle());
-//			defualtPane.add(clientPostNr);
-//
-//			JTextField writeClientPostNr = new JTextField();
-//			writeClientPostNr.setBounds(makeRectangle());
-//			defualtPane.add(writeClientPostNr);
-//
-//			JLabel clientAdress = new JLabel(adressLang);
-//			clientAdress.setBounds(makeRectangle());
-//			defualtPane.add(clientAdress);
-//
-//			JTextField writeClientAdress = new JTextField();
-//			writeClientAdress.setBounds(makeRectangle());
-//			defualtPane.add(writeClientAdress);
-//			
-//			JLabel clientEmail = new JLabel(emailLang);
-//			clientEmail.setBounds(makeRectangle());
-//			defualtPane.add(clientEmail);
-//
-//			JTextField writeClientEmail = new JTextField();
-//			writeClientEmail.setBounds(makeRectangle());
-//			defualtPane.add(writeClientEmail);
-//
-//			JLabel clientID = new JLabel(IDLang); // Get ID from
-//																// database when
-//																// the record is
-//																// made by the
-//																// bottom click.
-//			clientID.setBounds(paneWidth - 120, 10, 100, 20);
-//			defualtPane.add(clientID);
-//
-//			String timeNow = Timestamp.convert(Timestamp.getTimeNow());
-//			JLabel clientIDField = new JLabel(timeNow);
-//			clientIDField.setBounds(paneWidth - 150, 30, 150, 20);
-//			defualtPane.add(clientIDField);
-//
-//			JButton confirm = new JButton(confirmLang);
-//			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
-//			confirm.addActionListener(actionListener.confirmChange(
-//					writeClientFirstName, writeClientPhoneNumber));
-//			defualtPane.add(confirm);
-//			defualtPane.setVisible(true);
-//
-//		}
+			JTextField writeClientFirstName = new JTextField();
+			writeClientFirstName.setBounds(makeRectangle());
+			defualtPane.add(writeClientFirstName);
+
+			JLabel clientLastName = new JLabel(lastNameLang);
+			clientLastName.setBounds(makeRectangle());
+			defualtPane.add(clientLastName);
+
+			JTextField writeClientLastName = new JTextField();
+			writeClientLastName.setBounds(makeRectangle());
+			defualtPane.add(writeClientLastName);
+
+			JLabel clientPhoneNumber = new JLabel(phoneLang);
+			clientPhoneNumber.setBounds(makeRectangle());
+			defualtPane.add(clientPhoneNumber);
+
+			JTextField writeClientPhoneNumber = new JTextField();
+			writeClientPhoneNumber.setBounds(makeRectangle());
+			defualtPane.add(writeClientPhoneNumber);
+
+			JLabel clientPostNr = new JLabel(postNrLang);
+			clientPostNr.setBounds(makeRectangle());
+			defualtPane.add(clientPostNr);
+
+			JTextField writeClientPostNr = new JTextField();
+			writeClientPostNr.setBounds(makeRectangle());
+			defualtPane.add(writeClientPostNr);
+
+			JLabel clientAdress = new JLabel(adressLang);
+			clientAdress.setBounds(makeRectangle());
+			defualtPane.add(clientAdress);
+
+			JTextField writeClientAdress = new JTextField();
+			writeClientAdress.setBounds(makeRectangle());
+			defualtPane.add(writeClientAdress);
+			
+			JLabel clientEmail = new JLabel(emailLang);
+			clientEmail.setBounds(makeRectangle());
+			defualtPane.add(clientEmail);
+
+			JTextField writeClientEmail = new JTextField();
+			writeClientEmail.setBounds(makeRectangle());
+			defualtPane.add(writeClientEmail);
+
+			JLabel clientID = new JLabel(IDLang); // Get ID from
+																// database when
+																// the record is
+																// made by the
+																// bottom click.
+			clientID.setBounds(paneWidth - 120, 10, 100, 20);
+			defualtPane.add(clientID);
+
+			String timeNow = Timestamp.convert(Timestamp.getTimeNow());
+			JLabel clientIDField = new JLabel(timeNow);
+			clientIDField.setBounds(paneWidth - 150, 30, 150, 20);
+			defualtPane.add(clientIDField);
+
+			JButton confirm = new JButton(confirmLang);
+			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
+			confirm.addActionListener(actionListener.confirmChange(
+					writeClientFirstName, writeClientPhoneNumber));
+			defualtPane.add(confirm);
+
+		}
 	}
 
 	private void defualtPaneRectangleReset()
