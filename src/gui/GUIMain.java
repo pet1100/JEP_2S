@@ -1,6 +1,7 @@
 package gui;
 
 import time.Timestamp;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -39,6 +40,8 @@ public class GUIMain extends GUILanguage
 
 	{
 		actionListener.login();
+		scrollPane.setVisible(false);
+		defualtPane.setVisible(false);
 		add(defualtPane, BorderLayout.CENTER);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) screenSize.getWidth() / 10 * 8;
@@ -50,89 +53,67 @@ public class GUIMain extends GUILanguage
 		setResizable(false);
 		setTitle("Menu");
 
-		defualtPane.setVisible(true);
-		paneHeight = defualtPane.getSize().height;
-		paneWidth = defualtPane.getSize().width;
-		scrollPane.setVisible(false);
-		defualtPane.setVisible(false);
-
 		makeMenuButtons();
 
-		addWindowListener(new WindowListener()
-		{
+		addWindowListener(new WindowListener() {
 			@Override
-			public void windowOpened(WindowEvent e)
-			{
+			public void windowOpened(WindowEvent e) {
 			}
 
 			@Override
-			public void windowIconified(WindowEvent e)
-			{
+			public void windowIconified(WindowEvent e) {
 			}
 
 			@Override
-			public void windowDeiconified(WindowEvent e)
-			{
+			public void windowDeiconified(WindowEvent e) {
 			}
 
 			@Override
-			public void windowDeactivated(WindowEvent e)
-			{
+			public void windowDeactivated(WindowEvent e) {
 			}
 
 			@Override
-			public void windowClosing(WindowEvent e)
-			{
+			public void windowClosing(WindowEvent e) {
 				closeSystem();
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e)
-			{
+			public void windowClosed(WindowEvent e) {
 			}
 
 			@Override
-			public void windowActivated(WindowEvent e)
-			{
+			public void windowActivated(WindowEvent e) {
 			}
 		});
 	}
 
-	protected void closeSystem()
-	{
+	protected void closeSystem() {
 		System.exit(1);
 	}
 
-	private void makeMenuButtons()
-	{
+	private void makeMenuButtons() {
 		JPanel menuButtons = new JPanel();
 		menuButtons.setLayout(new GridLayout(1, 3));
 
 		JButton toMainMenu = new JButton(menuLang);
-		toMainMenu.addActionListener(new ActionListener()
-		{
+		toMainMenu.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 
 		JButton toKunder = new JButton(clientLang);
-		toKunder.addActionListener(new ActionListener()
-		{
+		toKunder.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				showClientList();
 			}
 		});
 
 		JButton makeNew = new JButton(newLang);
-		makeNew.addActionListener(new ActionListener()
-		{
+		makeNew.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				showNew();
 			}
 		});
@@ -143,116 +124,167 @@ public class GUIMain extends GUILanguage
 		add(menuButtons, BorderLayout.SOUTH);
 	}
 
-	protected void showClientList()
-	{
+	protected void showClientList() 
+	{   
 		scrollPane.removeAll();
 		defualtPane.setVisible(false);
 		if (scrollPane.isVisible())
 		{
 			scrollPane.setVisible(false);
-		}
-		else
+			return;
+		} 
+		else 
 		{
-
-			Object rowData[][] =
-			{
-			{ "Row1-Column1", "Row1-Column2", "Row1-Column3" },
-			{ "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
-			Object columnNames[] =
-			{ "Column One", "Column Two", "Column Three" };
+			
+			Object rowData[][] = {
+					{ "Row1-Column1", "Row1-Column2", "Row1-Column3" },
+					{ "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
+			Object columnNames[] = { "Column One", "Column Two", "Column Three" };
 			JTable table = new JTable(rowData, columnNames);
 
 			scrollPane = new JScrollPane(table);
 			add(scrollPane, BorderLayout.CENTER);
 			scrollPane.setVisible(true);
+			setVisible(true);
 		}
 	}
 
-	protected void showNew()
-	{
-		defualtPaneRectangleReset();
+	protected void showNew() {
 		defualtPane.removeAll();
 		scrollPane.setVisible(false);
-		if (defualtPane.isVisible())
-		{
-			setTitle(menuLang);
+		if (defualtPane.isVisible()) {
+			
 			defualtPane.setVisible(false);
 			return;
 		}
-		else
-		{
-			setTitle(clientLang);
-			
-			JLabel clientFirstName = new JLabel(firstNameLang);
-			clientFirstName.setBounds(makeRectangle());
+		else 
+		{	
+			JLabel clientFirstName = new JLabel(clientLang + " " + firstNameLang);
+			clientFirstName.setBounds(20, 10, 100, 20);
 			defualtPane.add(clientFirstName);
-
-			JTextField writeClientFirstName = new JTextField();
-			writeClientFirstName.setBounds(makeRectangle());
-			defualtPane.add(writeClientFirstName);
-
-			JLabel clientLastName = new JLabel(lastNameLang);
-			clientLastName.setBounds(makeRectangle());
-			defualtPane.add(clientLastName);
-
-			JTextField writeClientLastName = new JTextField();
-			writeClientLastName.setBounds(makeRectangle());
-			defualtPane.add(writeClientLastName);
-
-			JLabel clientPhoneNumber = new JLabel(phoneLang);
-			clientPhoneNumber.setBounds(makeRectangle());
-			defualtPane.add(clientPhoneNumber);
-
-			JTextField writeClientPhoneNumber = new JTextField();
-			writeClientPhoneNumber.setBounds(makeRectangle());
-			defualtPane.add(writeClientPhoneNumber);
-
-			JLabel clientPostNr = new JLabel(postNrLang);
-			clientPostNr.setBounds(makeRectangle());
-			defualtPane.add(clientPostNr);
-
-			JTextField writeClientPostNr = new JTextField();
-			writeClientPostNr.setBounds(makeRectangle());
-			defualtPane.add(writeClientPostNr);
-
-			JLabel clientAdress = new JLabel(adressLang);
-			clientAdress.setBounds(makeRectangle());
-			defualtPane.add(clientAdress);
-
-			JTextField writeClientAdress = new JTextField();
-			writeClientAdress.setBounds(makeRectangle());
-			defualtPane.add(writeClientAdress);
 			
-			JLabel clientEmail = new JLabel(emailLang);
-			clientEmail.setBounds(makeRectangle());
-			defualtPane.add(clientEmail);
-
-			JTextField writeClientEmail = new JTextField();
-			writeClientEmail.setBounds(makeRectangle());
-			defualtPane.add(writeClientEmail);
-
-			JLabel clientID = new JLabel(IDLang); // Get ID from
-																// database when
-																// the record is
-																// made by the
-																// bottom click.
-			clientID.setBounds(paneWidth - 120, 10, 100, 20);
+			JTextField writeClientFirstName = new JTextField();
+			writeClientFirstName.setBounds(20, 30, 100, 20);
+			defualtPane.add(writeClientFirstName);
+			
+			JLabel clientLastName = new JLabel(clientLang + " " + lastNameLang);
+			clientLastName.setBounds(20, 60, 100, 20);
+			defualtPane.add(clientLastName);
+			
+			JTextField writeClientLastName = new JTextField();
+			writeClientLastName.setBounds(20, 80, 100, 20);
+			defualtPane.add(writeClientLastName);
+			
+			JLabel clientPhoneNumber = new JLabel(clientLang + " " + phoneLang);
+			clientPhoneNumber.setBounds(20, 110, 100, 20);
+			defualtPane.add(clientPhoneNumber);
+			
+			JTextField writeClientPhoneNumber = new JTextField();
+			writeClientPhoneNumber.setBounds(20, 130, 100, 20);
+			defualtPane.add(writeClientPhoneNumber);
+			
+			JLabel clientID = new JLabel(clientLang + "ID");
+			clientID.setBounds(1000, 10, 100, 20);
 			defualtPane.add(clientID);
-
-			String timeNow = Timestamp.convert(Timestamp.getTimeNow());
-			JLabel clientIDField = new JLabel(timeNow);
-			clientIDField.setBounds(paneWidth - 150, 30, 150, 20);
+			
+			JLabel clientIDField= new JLabel("*Just an number*"); //Get ID from database when the record is made by the bottom click.
+			clientIDField.setBounds(1000, 30, 100, 20);
 			defualtPane.add(clientIDField);
-
+			
 			JButton confirm = new JButton(confirmLang);
-			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
-			confirm.addActionListener(actionListener.confirmChange(
-					writeClientFirstName, writeClientPhoneNumber));
+			confirm.setBounds(1000, 600, 100, 20);
+			confirm.addActionListener(actionListener.confirmChange(writeClientFirstName, writeClientPhoneNumber));
 			defualtPane.add(confirm);
-			add(defualtPane, BorderLayout.CENTER);
+			
 			defualtPane.setVisible(true);
-
+			add(defualtPane);
+			setVisible(true);
 		}
+
+//	protected void showNew()
+//	{
+//		defualtPaneRectangleReset();
+//		defualtPane.removeAll();
+//		scrollPane.setVisible(false);
+//		if (defualtPane.isVisible())
+//		{
+//			setTitle(menuLang);
+//			defualtPane.setVisible(false);
+//			return;
+//		}
+//		else
+//		{
+//			setTitle(clientLang);
+//			
+//			JLabel clientFirstName = new JLabel(firstNameLang);
+//			clientFirstName.setBounds(makeRectangle());
+//			defualtPane.add(clientFirstName);
+//
+//			JTextField writeClientFirstName = new JTextField();
+//			writeClientFirstName.setBounds(makeRectangle());
+//			defualtPane.add(writeClientFirstName);
+//
+//			JLabel clientLastName = new JLabel(lastNameLang);
+//			clientLastName.setBounds(makeRectangle());
+//			defualtPane.add(clientLastName);
+//
+//			JTextField writeClientLastName = new JTextField();
+//			writeClientLastName.setBounds(makeRectangle());
+//			defualtPane.add(writeClientLastName);
+//
+//			JLabel clientPhoneNumber = new JLabel(phoneLang);
+//			clientPhoneNumber.setBounds(makeRectangle());
+//			defualtPane.add(clientPhoneNumber);
+//
+//			JTextField writeClientPhoneNumber = new JTextField();
+//			writeClientPhoneNumber.setBounds(makeRectangle());
+//			defualtPane.add(writeClientPhoneNumber);
+//
+//			JLabel clientPostNr = new JLabel(postNrLang);
+//			clientPostNr.setBounds(makeRectangle());
+//			defualtPane.add(clientPostNr);
+//
+//			JTextField writeClientPostNr = new JTextField();
+//			writeClientPostNr.setBounds(makeRectangle());
+//			defualtPane.add(writeClientPostNr);
+//
+//			JLabel clientAdress = new JLabel(adressLang);
+//			clientAdress.setBounds(makeRectangle());
+//			defualtPane.add(clientAdress);
+//
+//			JTextField writeClientAdress = new JTextField();
+//			writeClientAdress.setBounds(makeRectangle());
+//			defualtPane.add(writeClientAdress);
+//			
+//			JLabel clientEmail = new JLabel(emailLang);
+//			clientEmail.setBounds(makeRectangle());
+//			defualtPane.add(clientEmail);
+//
+//			JTextField writeClientEmail = new JTextField();
+//			writeClientEmail.setBounds(makeRectangle());
+//			defualtPane.add(writeClientEmail);
+//
+//			JLabel clientID = new JLabel(IDLang); // Get ID from
+//																// database when
+//																// the record is
+//																// made by the
+//																// bottom click.
+//			clientID.setBounds(paneWidth - 120, 10, 100, 20);
+//			defualtPane.add(clientID);
+//
+//			String timeNow = Timestamp.convert(Timestamp.getTimeNow());
+//			JLabel clientIDField = new JLabel(timeNow);
+//			clientIDField.setBounds(paneWidth - 150, 30, 150, 20);
+//			defualtPane.add(clientIDField);
+//
+//			JButton confirm = new JButton(confirmLang);
+//			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
+//			confirm.addActionListener(actionListener.confirmChange(
+//					writeClientFirstName, writeClientPhoneNumber));
+//			defualtPane.add(confirm);
+//			defualtPane.setVisible(true);
+//
+//		}
 	}
 
 	private void defualtPaneRectangleReset()
