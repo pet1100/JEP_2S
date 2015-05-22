@@ -29,10 +29,7 @@ public class FWCase extends dbe.DBAddress {
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			 rs = s.executeQuery("Select sager.Sager_emne, sager.Sager_Notat, sager.Sager_OprettetDato, sager.Sager_Aktiv, sager.Sager_Adresse, postnr.postnr, postnr.BYNAVN, kunder.Kunde_navn, kunder.Kunde_EfterNavn, kunder.Kunde_Tlf, kunder.Kunde_Email, medarbejder.Medarbejder_Navn, medarbejder.Medarbejder_EfterNavn  from sager"
-				+	" join postnr on sager.FK_postnr = postnr.postnr"
-				+	" join kunder on sager.Fk_kunde = kunder.Kunde_Id"
-				+	" join medarbejder on sager.Fk_Ansvarlig = Medarbejder_Id where sager.Sager_Id = '"+id+"' ");
+			 rs = s.executeQuery("SELECT * FROM mydb.kunder where Kunde_Id = 1 = '"+id+"' ");
 
 
 
@@ -60,7 +57,7 @@ public class FWCase extends dbe.DBAddress {
 		
 	}
 
-	public dbe.DBE update(dbe.Case name) {
+	public dbe.Case update(dbe.Case name) {
 		ResultSet rs ;
 		try {
 			Statement s = null;
