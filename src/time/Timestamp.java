@@ -17,11 +17,16 @@ public class Timestamp  {
 		return datedate;
 	}
 
-	public static String convert(Date indputDate) throws ParseException {
+	public static String convert(Date indputDate)  {
 		SimpleDateFormat datFormat = new SimpleDateFormat("d MMM yyyy HH:mm:ss, z"); // formatet datoen skal vises i
 		stringdate = datFormat.format(indputDate);// convetere et date obj til en string i angivet format(datFormat obj's format)
 		return  stringdate;
 		
+		
+	}
+	public static String convertDateSql(java.sql.Timestamp dateSql ){
+		Date datedate = new Date(dateSql.getTime());
+		return convert(datedate);
 		
 	}
 	
