@@ -27,8 +27,6 @@ public class FWCient extends dbe.DBAddress {
 
 
 
-
-
 			
 			con.close();
 			s.close();
@@ -149,7 +147,8 @@ public class FWCient extends dbe.DBAddress {
 	}
 
 	public ResultSet readAll() {
-	
+		CachedRowSetImpl crs = null;
+		
 		ResultSet rs = null;
 		try {
 			Statement s = null;
@@ -161,7 +160,6 @@ public class FWCient extends dbe.DBAddress {
 			 		+ " join postnr where kunder.Fk_postnr = postnr.postnr");
 
 
- 
 
 
 
