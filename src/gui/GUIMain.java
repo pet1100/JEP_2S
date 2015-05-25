@@ -12,23 +12,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.nio.channels.WritePendingException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class GUIMain extends GUILanguage
-{
+public class GUIMain extends GUILanguage {
 
 	protected static JPanel menuBar = new JPanel();
-	private GUIActionListener actionListener = new GUIActionListener();
+	private GUILogin actionListener = new GUILogin();
 	private GUIController guiController = new GUIController();
 
 	private JScrollPane scrollPane = new JScrollPane();
@@ -59,42 +61,34 @@ public class GUIMain extends GUILanguage
 
 		makeMenuButtons();
 
-		addWindowListener(new WindowListener()
-		{
+		addWindowListener(new WindowListener() {
 			@Override
-			public void windowOpened(WindowEvent e)
-			{
+			public void windowOpened(WindowEvent e) {
 			}
 
 			@Override
-			public void windowIconified(WindowEvent e)
-			{
+			public void windowIconified(WindowEvent e) {
 			}
 
 			@Override
-			public void windowDeiconified(WindowEvent e)
-			{
+			public void windowDeiconified(WindowEvent e) {
 			}
 
 			@Override
-			public void windowDeactivated(WindowEvent e)
-			{
+			public void windowDeactivated(WindowEvent e) {
 			}
 
 			@Override
-			public void windowClosing(WindowEvent e)
-			{
+			public void windowClosing(WindowEvent e) {
 				closeSystem();
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e)
-			{
+			public void windowClosed(WindowEvent e) {
 			}
 
 			@Override
-			public void windowActivated(WindowEvent e)
-			{
+			public void windowActivated(WindowEvent e) {
 			}
 		});
 
@@ -102,8 +96,7 @@ public class GUIMain extends GUILanguage
 		add(defualtPane);
 		setVisible(true);
 
-		if (paneWidth == 0 || paneHeight == 0)
-		{
+		if (paneWidth == 0 || paneHeight == 0) {
 			paneWidth = defualtPane.getSize().width;
 			paneHeight = defualtPane.getSize().height;
 			System.out.println(defualtPane.getSize());
@@ -111,50 +104,40 @@ public class GUIMain extends GUILanguage
 		defualtPane.setVisible(false);
 	}
 
-	public static DefaultTableModel model = new DefaultTableModel()
-	{
+	public static DefaultTableModel model = new DefaultTableModel() {
 		@Override
-		public boolean isCellEditable(int row, int column)
-		{
+		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
 
-	protected void closeSystem()
-	{
+	protected void closeSystem() {
 		System.exit(1);
 	}
 
-	private void makeMenuButtons()
-	{
+	private void makeMenuButtons() {
 		JPanel menuButtons = new JPanel();
 		menuButtons.setLayout(new GridLayout(1, 3));
 
 		JButton toMainMenu = new JButton(menuLang);
-		toMainMenu.addActionListener(new ActionListener()
-		{
+		toMainMenu.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 
 		JButton toKunder = new JButton(clientLang);
-		toKunder.addActionListener(new ActionListener()
-		{
+		toKunder.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				showClientList();
 			}
 		});
 
 		JButton makeNew = new JButton(newLang);
-		makeNew.addActionListener(new ActionListener()
-		{
+		makeNew.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				showNew();
 			}
 		});
@@ -165,45 +148,38 @@ public class GUIMain extends GUILanguage
 		add(menuButtons, BorderLayout.SOUTH);
 	}
 
-	protected void showClientList()
-	{
+	protected void showClientList() {
 		scrollPane.removeAll();
 		defualtPane.setVisible(false);
-		if (scrollPane.isVisible())
-		{
+		if (scrollPane.isVisible()) {
 			scrollPane.setVisible(false);
 			return;
-		}
-		else
-		{
+		} else {
 			model.setRowCount(0);
-			model.setColumnIdentifiers(new Object[]
-			{ "ID", "Name", "Durp" });
+			model.setColumnIdentifiers(new Object[] { IDLang, nameLang,
+					phoneLang, emailLang, datoLang, cityLang, postNrLang });
 
-			 ResultSet rs = guiController.caseReadAll();
-			 while(rs.next())
-			 {
-			 model.addRow(new Object[]
-			 { rs.getString(1), rs.getString(2), rs.getString(3) });
-			 }
-//			for (int i = 0; i < 50; i++)
-//			{
-//				model.addRow(new Object[]
-//				{ i, "C : 2 | R : " + i, "C : 3 | R : " + i });
-//			}
+			ResultSet rs = guiController.clientReadAll();
+			try {
+				while (rs.next()) {
+					model.addRow(new Object[] { "2",
+							rs.getString(1) + " " + rs.getString(2),
+							rs.getString(3), rs.getString(4), rs.getString(5),
+							rs.getString(6), rs.getString(7) });
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 			JTable table = new JTable(model);
-			table.addMouseListener(new MouseAdapter()
-			{
+			table.addMouseListener(new MouseAdapter() {
 				int lastRow = -1;
 
 				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt)
-				{
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
 					int row = table.rowAtPoint(evt.getPoint());
 
-					if (lastRow == row)
-					{
+					if (lastRow == row) {
 						int i = Integer.parseInt(model.getValueAt(row, 0)
 								.toString());
 						showOne(1, i);
@@ -219,19 +195,15 @@ public class GUIMain extends GUILanguage
 		}
 	}
 
-	protected void showNew()
-	{
+	protected void showNew() {
 		defualtPane.removeAll();
 		scrollPane.setVisible(false);
-		if (defualtPane.isVisible() && getTitle().equals(newLang))
-		{
+		if (defualtPane.isVisible() && getTitle().equals(newLang)) {
 
 			defualtPane.setVisible(false);
 			setTitle(menuLang);
 			return;
-		}
-		else
-		{
+		} else {
 			System.out.println(defualtPane.getComponentCount());
 			defualtPane.setVisible(false);
 			defualtPane.removeAll();
@@ -241,8 +213,7 @@ public class GUIMain extends GUILanguage
 			add(defualtPane);
 			setVisible(true);
 
-			if (paneWidth == 0 || paneHeight == 0)
-			{
+			if (paneWidth == 0 || paneHeight == 0) {
 				paneWidth = defualtPane.getSize().width;
 				paneHeight = defualtPane.getSize().height;
 			}
@@ -251,12 +222,10 @@ public class GUIMain extends GUILanguage
 
 			JButton newClient = new JButton(clientLang);
 			newClient.setBounds(makeRectangleForNew());
-			newClient.addActionListener(new ActionListener()
-			{
+			newClient.addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent e)
-				{
+				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
 					showOne(1, -1);
 				}
@@ -267,12 +236,10 @@ public class GUIMain extends GUILanguage
 
 			JButton newCase = new JButton(caseLang);
 			newCase.setBounds(makeRectangleForNew());
-			newCase.addActionListener(new ActionListener()
-			{
+			newCase.addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent e)
-				{
+				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
 					showOne(3, -1);
 				}
@@ -281,12 +248,10 @@ public class GUIMain extends GUILanguage
 
 			JButton newWorker = new JButton(workLang);
 			newWorker.setBounds(makeRectangleForNew());
-			newWorker.addActionListener(new ActionListener()
-			{
+			newWorker.addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent e)
-				{
+				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
 					showOne(2, -1);
 				}
@@ -297,47 +262,58 @@ public class GUIMain extends GUILanguage
 
 	}
 
-	protected void showOne(int type, int ID)
-	{
-		String firstNameS = "";
-		String lastNameS = "";
-		String titleS = "";
-		String phoneS = "";
-		String postNrS = "";
-		String adressS = "";
-		String emailS = "";
-		String IDS = "";
+	private JTextField writeFirstName = null;
+	private JTextField writeLastName = null;
+	private JTextField writeTitleName = null;
+	protected void showOne(int type, int ID) {
+		String firstNameS = " ";
+		String lastNameS = " ";
+		String titleS = " ";
+		String phoneS = " ";
+		String postNrS = " ";
+		String adressS = " ";
+		String emailS = " ";
+		String IDS = " ";
 
-		if (ID != -1)
-		{
-			IDS = "" + ID;
-			switch (type)
-			{
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				default:
-					break;
+		if (ID != -1) {
+			switch (type) {
+			case 1:
+				try {
+					ResultSet rs = guiController.clientRead(ID);
+					if (rs.next()) {
+						// ID = rs.getString(1);
+						// date of creation = rs.getString(8);
+						firstNameS = rs.getString(2);
+						lastNameS = rs.getString(3);
+						phoneS = rs.getString(4);
+						emailS = rs.getString(5);
+						adressS = rs.getString(6);
+						postNrS = rs.getString(7);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			default:
+				break;
 			}
-		}
-		else
-		{
-			
+			IDS = "" + ID;
+		} else {
+
 		}
 		defualtPane.removeAll();
 		scrollPane.setVisible(false);
-		if (defualtPane.isVisible())
-		{
+		if (defualtPane.isVisible()) {
 
 			defualtPane.setVisible(false);
 			setTitle(menuLang);
 			return;
-		}
-		else
-		{
+		} else {
 			defualtPaneRectangleReset();
 			defualtPane.setVisible(true);
 			add(defualtPane);
@@ -345,13 +321,12 @@ public class GUIMain extends GUILanguage
 
 			setTitle(clientLang);
 
-			if (type != 3)
-			{
+			if (type != 3) {
 				JLabel firstName = new JLabel(firstNameLang);
 				firstName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(firstName);
 
-				JTextField writeFirstName = new JTextField(firstNameS);
+				writeFirstName = new JTextField(firstNameS);
 				writeFirstName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeFirstName);
 
@@ -359,17 +334,15 @@ public class GUIMain extends GUILanguage
 				lastName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(lastName);
 
-				JTextField writeLastName = new JTextField(lastNameS);
+				writeLastName = new JTextField(lastNameS);
 				writeLastName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeLastName);
-			}
-			else
-			{
+			} else {
 				JLabel titleName = new JLabel(titleLang);
 				titleName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(titleName);
 
-				JTextField writeTitleName = new JTextField(titleS);
+				writeTitleName = new JTextField(titleS);
 				writeTitleName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeTitleName);
 			}
@@ -385,7 +358,7 @@ public class GUIMain extends GUILanguage
 			clientPostNr.setBounds(makeRectangleForShowOne());
 			defualtPane.add(clientPostNr);
 
-			JTextField writeClientPostNr = new JTextField(phoneS);
+			JTextField writeClientPostNr = new JTextField(postNrS);
 			writeClientPostNr.setBounds(makeRectangleForShowOne());
 			defualtPane.add(writeClientPostNr);
 
@@ -420,14 +393,36 @@ public class GUIMain extends GUILanguage
 
 			JButton confirm = new JButton(confirmLang);
 			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
-			// confirm.addActionListener(actionListener.confirmChange(
-			// writeClientFirstName, writeClientPhoneNumber));
+			confirm.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						int clientPhone = Integer
+								.parseInt(writeClientPhoneNumber
+										.getText());
+						int clientPostNr = Integer.parseInt(writeClientPostNr.getText());
+						saveClient(clientPhone, writeFirstName.getText(), writeLastName.getText(), clientPostNr, writeClientAdress.getText(), writeClientEmail.getText(), ID);
+						
+					} catch (NumberFormatException n) {
+						JOptionPane.showMessageDialog(null,
+								"Phone number is invalid");
+						
+						return;
+					}
+					}
+				
+			});
 			defualtPane.add(confirm);
 		}
 	}
 
-	private void defualtPaneRectangleReset()
-	{
+	protected void saveClient(int number, String firstName, String LastName, int postNr, String adress, String email, int ID) {
+		System.out.println(number + " " + firstName + " " + LastName + " " + postNr + " " + adress + " " + email + " " + ID);
+		
+	}
+
+	private void defualtPaneRectangleReset() {
 		rectangleY = 10;
 		rectangleX = 20;
 		rectangleW = 100;
@@ -435,37 +430,30 @@ public class GUIMain extends GUILanguage
 		rectangleTrue = true;
 	}
 
-	private Rectangle makeRectangleForShowOne()
-	{
+	private Rectangle makeRectangleForShowOne() {
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
 				rectangleH);
-		if (rectangleTrue)
-		{
+		if (rectangleTrue) {
 			rectangleY += 20;
 			rectangleTrue = false;
-			if (rectangleY + 60 > paneHeight)
-			{
+			if (rectangleY + 60 > paneHeight) {
 				rectangleX += 120;
 				rectangleY = 10;
 				rectangleTrue = true;
 			}
-		}
-		else
-		{
+		} else {
 			rectangleY += 30;
 			rectangleTrue = true;
 		}
 		return r;
 	}
 
-	private Rectangle makeRectangleForNew()
-	{
+	private Rectangle makeRectangleForNew() {
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
 				rectangleH);
 		rectangleY += 30;
 
-		if (rectangleY + 60 > paneHeight)
-		{
+		if (rectangleY + 60 > paneHeight) {
 			rectangleX += 120;
 			rectangleY = 10;
 		}

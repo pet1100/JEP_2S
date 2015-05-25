@@ -1,27 +1,29 @@
 package gui;
 
+import java.sql.ResultSet;
+
 import fw.FWcontroller;
 
 public class GUIController
 {
 	FWcontroller fwc = new FWcontroller();
 	
-	protected resultSet caseReadAll()
+	protected ResultSet caseReadAll()
 	{
 		return fwc.caseReadAll();
 	}
 	
-	protected resultSet caseRead(int i)
+	protected ResultSet caseRead(int i)
 	{
 		return fwc.caseRead(i);
 	}
 	
-	protected resultSet clientReadAll()
+	protected ResultSet clientReadAll()
 	{
 		return fwc.clientReadAll();
 	}
 	
-	protected resultSet clientRead(int i)
+	protected ResultSet clientRead(int i)
 	{
 		return fwc.clientRead(i);
 	}

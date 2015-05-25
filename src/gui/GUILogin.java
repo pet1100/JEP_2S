@@ -16,25 +16,7 @@ import javax.swing.JTextField;
  * Contains all action listener except for the ones there is in makeMenuButtons in GUIMain
  */
 
-public class GUIActionListener {
-
-	public ActionListener confirmChange(JTextField writeClientFirstName,
-			JTextField writeClientPhoneNumber) {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent a) {
-				try {
-					int clientPhone = Integer.parseInt(writeClientPhoneNumber
-							.getText());
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Phone number is invalid");
-					return;
-				}
-				System.out.println("No return");
-
-			}
-		};
-	}
+public class GUILogin {
 
 	public void login() {
 		JTextField userName = new JTextField(5);
