@@ -25,7 +25,7 @@ public class Timestamp  {
 		
 	}
 	public static String convertDateSql(java.sql.Timestamp dateSql ){
-		Date datedate = new Date(dateSql.getTime());
+		Date datedate = new Date(dateSql.getTime());//
 		return convert(datedate);
 		
 	}
