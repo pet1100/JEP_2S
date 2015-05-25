@@ -22,8 +22,11 @@ public class Timestamp  {
 		SimpleDateFormat datFormat = new SimpleDateFormat("d MMM yyyy HH:mm:ss"); // formatet datoen skal vises i
 		stringdate = datFormat.format(indputDate);// convetere et date obj til en string i angivet format(datFormat obj's format)
 		return  stringdate;
-		
-		
+			
+	}
+	public static String convertDateSql(java.sql.Timestamp dateSql ){ 
+		Date datedate = new Date(dateSql.getTime()); 
+		return convert(datedate); 
 	}
 	
 }
