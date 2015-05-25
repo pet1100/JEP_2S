@@ -22,10 +22,7 @@ public class FWCient extends dbe.DBAddress {
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			 rs = s.executeQuery("Select sager.Sager_emne, sager.Sager_Notat, sager.Sager_OprettetDato, sager.Sager_Aktiv, sager.Sager_Adresse, postnr.postnr, postnr.BYNAVN, kunder.Kunde_navn, kunder.Kunde_EfterNavn, kunder.Kunde_Tlf, kunder.Kunde_Email, medarbejder.Medarbejder_Navn, medarbejder.Medarbejder_EfterNavn  from sager"
-				+	" join postnr on sager.FK_postnr = postnr.postnr"
-				+	" join kunder on sager.Fk_kunde = kunder.Kunde_Id"
-				+	" join medarbejder on sager.Fk_Ansvarlig = Medarbejder_Id where sager.Sager_Id = '"+id+"' ");
+			 rs = s.executeQuery("Select * from Kunder WHERE Kunde_Id = '"+id+"' ");
 
 
 
@@ -161,7 +158,7 @@ public class FWCient extends dbe.DBAddress {
 					getpassword());
 			s = con.createStatement();
 			 rs = s.executeQuery("select kunder.Kunde_Navn,  kunder.Kunde_EfterNavn,  kunder.Kunde_Tlf,   kunder.Kunde_Email,  kunder.Kunde_Adresse,  kunder.Kunde_Dato, postnr.postnr, postnr.BYNAVN from kunder"
-			 		+ "join postnr where kunder.Fk_postnr = postnr.postnr");
+			 		+ " join postnr where kunder.Fk_postnr = postnr.postnr");
 
 
  
