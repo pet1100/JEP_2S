@@ -147,7 +147,6 @@ public class FWCient extends dbe.DBAddress {
 	}
 
 	public ResultSet readAll() {
-		CachedRowSetImpl crs = null;
 		
 		ResultSet rs = null;
 		try {
