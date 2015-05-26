@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.nio.channels.WritePendingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,6 +25,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import dbe.Client;
+import fw.FWcontroller;
 
 public class GUIMain extends GUILanguage {
 
@@ -99,7 +101,6 @@ public class GUIMain extends GUILanguage {
 		if (paneWidth == 0 || paneHeight == 0) {
 			paneWidth = defualtPane.getSize().width;
 			paneHeight = defualtPane.getSize().height;
-			System.out.println(defualtPane.getSize());
 		}
 		defualtPane.setVisible(false);
 	}
@@ -123,6 +124,7 @@ public class GUIMain extends GUILanguage {
 		toMainMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				showMenu();
 			}
 		});
 
@@ -227,7 +229,8 @@ public class GUIMain extends GUILanguage {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
-					showOne(1, -1);
+					int ID = guiController.caseCreate();
+					showOne(1, ID);
 				}
 			});
 			defualtPane.add(newClient);
@@ -410,6 +413,7 @@ public class GUIMain extends GUILanguage {
 						
 						return;
 					}
+					showMenu();
 					}
 				
 			});
@@ -417,8 +421,14 @@ public class GUIMain extends GUILanguage {
 		}
 	}
 
-	protected void saveClient(int number, String firstName, String LastName, int postNr, String adress, String email, int ID) {
-		
+	protected void showMenu()
+	{
+		defualtPane.setVisible(false);
+		scrollPane.setVisible(false);
+	}
+
+	protected void saveClient(int phoneNumber, String firstName, String lastName, int postNr, String address, String email, int ID) {
+		guiController.update(new Client(ID, firstName, address, (short) postNr, phoneNumber, lastName, email));
 	}
 
 	private void defualtPaneRectangleReset() {

@@ -8,10 +8,10 @@ import time.Timestamp;
 public class Offer extends Case {
 	private int rentalDays;
 	private ArrayList<Prices> priceList;
-	public Offer(int id, Date dateFrom, String name, String address,
+	public Offer(int id, String name, String address,
 			short zipCode, String type, Byte department, int employeeID,
 			int clientID) {
-		super(id, dateFrom, name, address, zipCode, type, department, employeeID,
+		super(id, name, address, zipCode, type, department, employeeID,
 				clientID);
 		this.rentalDays = rentalDays;
 		priceList = new ArrayList<Prices>();

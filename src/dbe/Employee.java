@@ -12,9 +12,9 @@ public class Employee extends DBE {
 	private byte userlevel;
 	private String passWord;
 	private String userName;
-	public Employee(int id, Date dateFrom, String name, String address,
+	public Employee(int id, String name, String address,
 			short zipCode,int tlf, String lastName, byte userlevel, String passWord, String userName) {
-		super(id, dateFrom, name, address, zipCode);
+		super(id, name, address, zipCode);
 		this.tlf = tlf;
 		this.lastName = lastName;
 		this.userlevel = userlevel;

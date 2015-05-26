@@ -16,9 +16,9 @@ public class Case extends DBE {
 	private String noteExternal;
 	
 	
-	public Case(int id, Date date, String name, String address,
+	public Case(int id, String name, String address,
 			int i, String type, Byte department, int employeeID, int clientID) {
-		super(id, date, name, address, i);
+		super(id, name, address, i);
 			this.type = type;
 			this.department = department;
 			this.employeeID = employeeID;

@@ -2,6 +2,7 @@ package gui;
 
 import java.sql.ResultSet;
 
+import dbe.Client;
 import fw.FWcontroller;
 
 public class GUIController
@@ -26,5 +27,15 @@ public class GUIController
 	protected ResultSet clientRead(int i)
 	{
 		return fwc.clientRead(i);
+	}
+
+	public int caseCreate()
+	{
+		return FWcontroller.clientCreate();
+	}
+
+	public void update(Client c)
+	{
+		FWcontroller.clientUpdate(c);
 	}
 }

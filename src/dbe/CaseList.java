@@ -8,10 +8,10 @@ import time.Timestamp;
 
 public class CaseList extends Case {
 
-	public CaseList(int id, Date dateFrom, String name, String address,
+	public CaseList(int id, String name, String address,
 			short zipCode, String type, Byte department, int employeeID,
 			int clientID) {
-		super(id, dateFrom, name, address, zipCode, type, department, employeeID,
+		super(id, name, address, zipCode, type, department, employeeID,
 				clientID);// nedarvet fra case class
 			offerList = new ArrayList<Offer>();
 			invoiceList = new ArrayList<Invoice>();

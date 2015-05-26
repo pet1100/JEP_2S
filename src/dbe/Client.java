@@ -9,9 +9,9 @@ public class Client extends DBE {
 	private int tlf;
 	private String lastName;
 	private String email;
-	public Client(int id, Date dateFrom, String name, String address,
+	public Client(int id, String name, String address,
 			short zipCode, int tlf, String lastName, String email) {
-		super(id, dateFrom, name, address, zipCode);
+		super(id, name, address, zipCode);
 		this.tlf = tlf;
 		this.lastName = lastName;
 		this.email = email;

@@ -9,10 +9,10 @@ import time.Timestamp;
 public class Invoice extends Case {
 	private byte tax;
 	private int total;
-	public Invoice(int id, Date dateFrom, String name, String address,
+	public Invoice(int id, String name, String address,
 			short zipCode, String type, Byte department, int employeeID,
 			int clientID) {
-		super(id, dateFrom, name, address, zipCode, type, department, employeeID,
+		super(id, name, address, zipCode, type, department, employeeID,
 				clientID);
 		// TODO Auto-generated constructor stub
 	}

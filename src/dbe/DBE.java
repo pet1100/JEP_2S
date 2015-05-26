@@ -8,15 +8,13 @@ import time.Timestamp;
 public class DBE {
 
 	private int id;
-	private Date dateFrom;
 	private String name;
 	private boolean active;
 	private String address;
 	private short zipCode;
 	private String city;
-	public DBE(int id, Date dateFrom, String name, String address, int i){
+	public DBE(int id, String name, String address, int i){
 		this.id = id;
-		this.dateFrom = dateFrom;
 		this.name = name;
 		this.address = address; 
 		this.zipCode = (short) i;
@@ -25,10 +23,6 @@ public class DBE {
 	}
 	public int getId() {
 		return this.id;
-	}
-
-	public Date getDateFrom() {
-		return this.dateFrom;
 	}
 
 	public String getName() {

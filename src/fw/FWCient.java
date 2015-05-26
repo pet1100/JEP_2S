@@ -58,9 +58,11 @@ public class FWCient extends dbe.DBAddress {
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
+			
+			System.out.println(name.getId() + " " + name.getName() + " " + name.getTlf());
 	
-			 String query = "update kunder set Kunde_navn = ?, Kunde_EfterNavn = ?, Kunde_Tlf = ?, Kunde_Email = ?, Fk_postnr = ?, "
-			 		+ " where Kunde_Id = ("+name.getId()+")";
+			 String query = "update kunder set Kunde_navn = ?, Kunde_EfterNavn = ?, Kunde_Tlf = ?, Kunde_Email = ?, Fk_postnr = ? "
+			 		+ " where Kunde_Id = "+name.getId()+"";
 		      PreparedStatement preparedStmt = con.prepareStatement(query);
 		      preparedStmt.setString(1, name.getName());
 		      preparedStmt.setString(2, name.getLastName());
@@ -161,7 +163,7 @@ public class FWCient extends dbe.DBAddress {
 					getpassword());
 			s = con.createStatement();
 			 rs = s.executeQuery("select kunder.Kunde_Navn,  kunder.Kunde_EfterNavn,  kunder.Kunde_Tlf,   kunder.Kunde_Email,  kunder.Kunde_Adresse,  kunder.Kunde_Dato, postnr.postnr, postnr.By, kunder.Kunde_Id from kunder"
-			 		+ " join postnr where kunder.Fk_postnr = postnr.postnr");
+			 		+ " left join postnr on postnr.postnr = kunder.Fk_postnr");
 
 			 crs = new CachedRowSetImpl();
 			 crs.populate(rs);
