@@ -20,7 +20,7 @@ public class GUIController
 	
 	protected ResultSet clientReadAll()
 	{
-		return fwc.clientReadAll();
+		return FWcontroller.clientReadAll();
 	}
 	
 	protected ResultSet clientRead(int i)

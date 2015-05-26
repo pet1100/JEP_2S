@@ -57,7 +57,7 @@ public class GUIMain extends GUILanguage {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
-		setTitle("Menu");
+		setTitle(menuLang);
 
 		makeMenuButtons();
 
@@ -157,15 +157,16 @@ public class GUIMain extends GUILanguage {
 		} else {
 			model.setRowCount(0);
 			model.setColumnIdentifiers(new Object[] { IDLang, nameLang,
-					phoneLang, emailLang, datoLang, cityLang, postNrLang });
+					phoneLang, emailLang, adressLang,cityLang, postNrLang, datoLang});
 
 			ResultSet rs = guiController.clientReadAll();
+			
 			try {
 				while (rs.next()) {
-					model.addRow(new Object[] { "2",
+					model.addRow(new Object[] { rs.getInt(9),
 							rs.getString(1) + " " + rs.getString(2),
 							rs.getString(3), rs.getString(4), rs.getString(5),
-							rs.getString(6), rs.getString(7) });
+							rs.getString(8), rs.getString(7),rs.getString(6) });
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -204,7 +205,6 @@ public class GUIMain extends GUILanguage {
 			setTitle(menuLang);
 			return;
 		} else {
-			System.out.println(defualtPane.getComponentCount());
 			defualtPane.setVisible(false);
 			defualtPane.removeAll();
 			defualtPaneRectangleReset();
@@ -418,7 +418,6 @@ public class GUIMain extends GUILanguage {
 	}
 
 	protected void saveClient(int number, String firstName, String LastName, int postNr, String adress, String email, int ID) {
-		System.out.println(number + " " + firstName + " " + LastName + " " + postNr + " " + adress + " " + email + " " + ID);
 		
 	}
 

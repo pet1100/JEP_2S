@@ -5,6 +5,8 @@ import dbe.Client;
 
 import java.sql.*;
 
+import com.sun.rowset.CachedRowSetImpl;
+
 
 public class FWCient extends dbe.DBAddress {
 
@@ -16,6 +18,8 @@ public class FWCient extends dbe.DBAddress {
 	public ResultSet read(int id) {
 		
 		ResultSet rs = null;
+		CachedRowSetImpl crs = null;
+		
 		try {
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
@@ -24,9 +28,8 @@ public class FWCient extends dbe.DBAddress {
 			s = con.createStatement();
 			 rs = s.executeQuery("Select * from Kunder WHERE Kunde_Id = '"+id+"' ");
 
-
-
-
+			 crs = new CachedRowSetImpl();
+			 crs.populate(rs);
 			
 			con.close();
 			s.close();
@@ -42,7 +45,7 @@ public class FWCient extends dbe.DBAddress {
 			System.out.println(noClass.getMessage());
 			System.exit(1); // terminate program
 		} 
-		return rs; // id(skal du ikkebruge navn efternavn tlf email adresse postnr dato
+		return crs; // id(skal du ikkebruge navn efternavn tlf email adresse postnr dato
 		
 	
 	}
@@ -149,24 +152,20 @@ public class FWCient extends dbe.DBAddress {
 	public ResultSet readAll() {
 		
 		ResultSet rs = null;
+		CachedRowSetImpl crs = null;
+		
 		try {
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			 rs = s.executeQuery("select kunder.Kunde_Navn,  kunder.Kunde_EfterNavn,  kunder.Kunde_Tlf,   kunder.Kunde_Email,  kunder.Kunde_Adresse,  kunder.Kunde_Dato, postnr.postnr, postnr.BYNAVN from kunder"
+			 rs = s.executeQuery("select kunder.Kunde_Navn,  kunder.Kunde_EfterNavn,  kunder.Kunde_Tlf,   kunder.Kunde_Email,  kunder.Kunde_Adresse,  kunder.Kunde_Dato, postnr.postnr, postnr.By, kunder.Kunde_Id from kunder"
 			 		+ " join postnr where kunder.Fk_postnr = postnr.postnr");
 
+			 crs = new CachedRowSetImpl();
+			 crs.populate(rs);
 
-
-
-
-
-while(rs.next())
-{
-	System.out.println(rs.getString(1));// test
-}
 
 			
 			con.close();
@@ -183,6 +182,6 @@ while(rs.next())
 			System.out.println(noClass.getMessage());
 			System.exit(1); // terminate program
 		} 
-		return rs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
+		return crs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
 	}
 }
