@@ -17,8 +17,8 @@ public class Case extends DBE {
 	
 	
 	public Case(int id, String name, String address,
-			int i, String type, Byte department, int employeeID, int clientID) {
-		super(id, name, address, i);
+			short zipCode, String type, Byte department, int employeeID, int clientID) {
+		super(id, name, address, zipCode);
 			this.type = type;
 			this.department = department;
 			this.employeeID = employeeID;

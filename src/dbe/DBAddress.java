@@ -7,7 +7,7 @@ public class DBAddress {
 	private  String JDBC_DRIVER = "com.mysql.jdbc.Driver" ;
 	private  String DATABASE_URL = "jdbc:mysql://localhost/mydb";
 	private String username = "root";
-	private String password = "1337" ;
+	private String password = "admin" ;
 	
 
 	public DBAddress()

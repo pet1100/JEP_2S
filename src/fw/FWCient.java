@@ -163,7 +163,8 @@ public class FWCient extends dbe.DBAddress {
 					getpassword());
 			s = con.createStatement();
 			 rs = s.executeQuery("select kunder.Kunde_Navn,  kunder.Kunde_EfterNavn,  kunder.Kunde_Tlf,   kunder.Kunde_Email,  kunder.Kunde_Adresse,  kunder.Kunde_Dato, postnr.postnr, postnr.By, kunder.Kunde_Id from kunder"
-			 		+ " left join postnr on postnr.postnr = kunder.Fk_postnr");
+			 		+ " left join postnr on postnr.postnr = kunder.Fk_postnr "
+			 		+ " order by Kunde_Id");
 
 			 crs = new CachedRowSetImpl();
 			 crs.populate(rs);

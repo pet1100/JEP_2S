@@ -9,6 +9,8 @@ import java.sql.Statement;
 import dbe.*;
 
 import java.sql.*;
+
+import com.sun.rowset.CachedRowSetImpl;
 public class FWEmployee extends DBAddress {
 
 	private Connection con;
@@ -25,7 +27,8 @@ public class FWEmployee extends DBAddress {
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			 rs = s.executeQuery("Select * from Medarbejder WHERE Medarbejder_Id = '"+id+"' ");
+			 rs = s.executeQuery("Select * from Medarbejder WHERE Medarbejder_Id = '"+id+"' "
+			 		+ " order by Medarbejder_Id");
 
 
 
@@ -156,6 +159,8 @@ public class FWEmployee extends DBAddress {
 	public ResultSet readAll() {
 	
 		ResultSet rs = null;
+		CachedRowSetImpl crs = null;
+		
 		try {
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
@@ -163,19 +168,10 @@ public class FWEmployee extends DBAddress {
 					getpassword());
 			s = con.createStatement();
 			 rs = s.executeQuery("select * from medarbejder"
-			 		+ "join postnr where medarbejder.FK_postnr = postnr.postnr");
-
-
-
-
-
-
-
-while(rs.next())
-{
-	System.out.println(rs.getString(1));// test
-}
-
+			 		+ " left join postnr on medarbejder.FK_postnr = postnr.postnr");
+			 
+			 crs = new CachedRowSetImpl();
+			 crs.populate(rs);
 			
 			con.close();
 			s.close();
@@ -191,6 +187,6 @@ while(rs.next())
 			System.out.println(noClass.getMessage());
 			System.exit(1); // terminate program
 		} 
-		return rs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
+		return crs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
 	}
 }

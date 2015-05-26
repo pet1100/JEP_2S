@@ -2,23 +2,38 @@ package gui;
 
 import java.sql.ResultSet;
 
+import dbe.Case;
 import dbe.Client;
+import dbe.Employee;
+import fw.FWCase;
 import fw.FWcontroller;
 
 public class GUIController
 {
-	FWcontroller fwc = new FWcontroller();
 	
+	//All with case
 	protected ResultSet caseReadAll()
 	{
-		return fwc.caseReadAll();
+		return FWcontroller.caseReadAll();
 	}
 	
 	protected ResultSet caseRead(int i)
 	{
-		return fwc.caseRead(i);
+		return FWcontroller.caseRead(i);
 	}
 	
+	protected void updateCase(Case c)
+	{
+		FWcontroller.caseUpdate(c);
+	}
+	
+	protected int caseCreate()
+	{
+		return FWcontroller.createCase();
+	}
+	
+	
+	//All with client
 	protected ResultSet clientReadAll()
 	{
 		return FWcontroller.clientReadAll();
@@ -26,16 +41,37 @@ public class GUIController
 	
 	protected ResultSet clientRead(int i)
 	{
-		return fwc.clientRead(i);
+		return FWcontroller.clientRead(i);
 	}
-
-	public int caseCreate()
-	{
-		return FWcontroller.clientCreate();
-	}
-
-	public void update(Client c)
+	
+	protected void updateClient(Client c)
 	{
 		FWcontroller.clientUpdate(c);
 	}
+
+	protected int clientCreate() {
+		return FWcontroller.clientCreate();
+	}
+	
+	//All with worker (Not implemented)
+	protected ResultSet workerReadAll()
+	{
+		return FWcontroller.employeeReadAll();
+	}
+	
+	protected ResultSet workerRead(int i)
+	{
+		return FWcontroller.employeeRead(i);
+	}
+	
+	protected void workerUpdate(Employee c)
+	{
+		FWcontroller.empoyeeUpdate(c);
+	}
+
+	protected int workerCreate() {
+		return FWcontroller.employeeCreate();
+	}
+	
+	
 }

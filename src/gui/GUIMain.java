@@ -26,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import dbe.Case;
 import dbe.Client;
 import fw.FWcontroller;
 
@@ -127,12 +128,28 @@ public class GUIMain extends GUILanguage {
 				showMenu();
 			}
 		});
+		
+		JButton toCases = new JButton(caseLang);
+		toCases.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showCaseList();
+			}
+		});
 
 		JButton toKunder = new JButton(clientLang);
 		toKunder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				showClientList();
+			}
+		});
+		
+		JButton toEmpoyee = new JButton(workLang);
+		toEmpoyee.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showWorkerList();
 			}
 		});
 
@@ -145,30 +162,106 @@ public class GUIMain extends GUILanguage {
 		});
 
 		menuButtons.add(toKunder);
+		menuButtons.add(toCases);
+		menuButtons.add(toEmpoyee);
 		menuButtons.add(toMainMenu);
 		menuButtons.add(makeNew);
 		add(menuButtons, BorderLayout.SOUTH);
 	}
 
+	protected void showWorkerList() {
+		if(scrollPaneThere()) {
+			model.setRowCount(0);
+			model.setColumnIdentifiers(new Object[] { IDLang, cityLang, postNrLang, datoLang, caseLang + "" + adressLang, clientLang + " " + nameLang  });
+
+			ResultSet rs = guiController.workerReadAll();
+		
+			try {
+				while (rs.next()) {
+					model.addRow(new Object[] {rs.getString(1)});
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			JTable table = new JTable(model);
+			table.addMouseListener(new MouseAdapter() {
+				int lastRow = -1;
+
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					int row = table.rowAtPoint(evt.getPoint());
+
+					if (lastRow == row) {
+						int i = Integer.parseInt(model.getValueAt(row, 0)
+								.toString());
+						showOne(3, i);
+					}
+					lastRow = row;
+				}
+			});
+
+			scrollPane = new JScrollPane(table);
+			add(scrollPane, BorderLayout.CENTER);
+			scrollPane.setVisible(true);
+			setVisible(true);
+		}
+	}
+
+	protected void showCaseList() {
+		if(scrollPaneThere()) {
+			model.setRowCount(0);
+			model.setColumnIdentifiers(new Object[] { IDLang, cityLang, postNrLang, datoLang, caseLang + "" + adressLang, clientLang + " " + nameLang  });
+
+			ResultSet rs = guiController.caseReadAll();
+		
+			try {
+				while (rs.next()) {
+					model.addRow(new Object[] {rs.getInt(14), rs.getString(7), rs.getShort(6), rs.getString(3), rs.getString(5), rs.getString(8) + " " + rs.getString(9) });
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			JTable table = new JTable(model);
+			table.addMouseListener(new MouseAdapter() {
+				int lastRow = -1;
+
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					int row = table.rowAtPoint(evt.getPoint());
+
+					if (lastRow == row) {
+						int i = Integer.parseInt(model.getValueAt(row, 0)
+								.toString());
+						showOne(3, i);
+					}
+					lastRow = row;
+				}
+			});
+
+			scrollPane = new JScrollPane(table);
+			add(scrollPane, BorderLayout.CENTER);
+			scrollPane.setVisible(true);
+			setVisible(true);
+		}
+	}
+
 	protected void showClientList() {
-		scrollPane.removeAll();
-		defualtPane.setVisible(false);
-		if (scrollPane.isVisible()) {
-			scrollPane.setVisible(false);
-			return;
-		} else {
+		if(scrollPaneThere()) {
 			model.setRowCount(0);
 			model.setColumnIdentifiers(new Object[] { IDLang, nameLang,
-					phoneLang, emailLang, adressLang,cityLang, postNrLang, datoLang});
+					phoneLang, emailLang, adressLang, cityLang, postNrLang,
+					datoLang });
 
 			ResultSet rs = guiController.clientReadAll();
-			
+
 			try {
 				while (rs.next()) {
 					model.addRow(new Object[] { rs.getInt(9),
 							rs.getString(1) + " " + rs.getString(2),
 							rs.getString(3), rs.getString(4), rs.getString(5),
-							rs.getString(8), rs.getString(7),rs.getString(6) });
+							rs.getString(8), rs.getString(7), rs.getString(6) });
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -196,6 +289,16 @@ public class GUIMain extends GUILanguage {
 			scrollPane.setVisible(true);
 			setVisible(true);
 		}
+	}
+
+	private boolean scrollPaneThere() {
+		scrollPane.removeAll();
+		defualtPane.setVisible(false);
+		if (scrollPane.isVisible()) {
+			scrollPane.setVisible(false);
+			return false;
+		}
+		return true;
 	}
 
 	protected void showNew() {
@@ -229,7 +332,7 @@ public class GUIMain extends GUILanguage {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
-					int ID = guiController.caseCreate();
+					int ID = guiController.clientCreate();
 					showOne(1, ID);
 				}
 			});
@@ -244,7 +347,8 @@ public class GUIMain extends GUILanguage {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
-					showOne(3, -1);
+					int ID = guiController.caseCreate();
+					showOne(3, ID);
 				}
 			});
 			defualtPane.add(newCase);
@@ -256,7 +360,8 @@ public class GUIMain extends GUILanguage {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					defualtPane.setVisible(false);
-					showOne(2, -1);
+					int ID = guiController.workerCreate();
+					showOne(2, ID);
 				}
 			});
 			defualtPane.add(newWorker);
@@ -268,15 +373,20 @@ public class GUIMain extends GUILanguage {
 	private JTextField writeFirstName = null;
 	private JTextField writeLastName = null;
 	private JTextField writeTitleName = null;
+	private JTextField writeEmail = null;
+	private JTextField writeCaseType = null;
+
 	protected void showOne(int type, int ID) {
-		String firstNameS = " ";
-		String lastNameS = " ";
-		String titleS = " ";
-		String phoneS = " ";
-		String postNrS = " ";
-		String adressS = " ";
-		String emailS = " ";
-		String IDS = " ";
+		String firstNameS = "";
+		String lastNameS = "";
+		String titleS = "";
+		String phoneS = "";
+		String postNrS = "";
+		String adressS = "";
+		String emailS = "";
+		String IDS = "";
+		String caseTypeS = "";
+		
 
 		if (ID != -1) {
 			switch (type) {
@@ -349,50 +459,59 @@ public class GUIMain extends GUILanguage {
 				writeTitleName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeTitleName);
 			}
-			JLabel clientPhoneNumber = new JLabel(phoneLang);
-			clientPhoneNumber.setBounds(makeRectangleForShowOne());
-			defualtPane.add(clientPhoneNumber);
+			JLabel PhoneNumber = new JLabel(phoneLang);
+			PhoneNumber.setBounds(makeRectangleForShowOne());
+			defualtPane.add(PhoneNumber);
 
-			JTextField writeClientPhoneNumber = new JTextField(phoneS);
-			writeClientPhoneNumber.setBounds(makeRectangleForShowOne());
-			defualtPane.add(writeClientPhoneNumber);
+			JTextField writePhoneNumber = new JTextField(phoneS);
+			writePhoneNumber.setBounds(makeRectangleForShowOne());
+			defualtPane.add(writePhoneNumber);
 
-			JLabel clientPostNr = new JLabel(postNrLang);
-			clientPostNr.setBounds(makeRectangleForShowOne());
-			defualtPane.add(clientPostNr);
+			JLabel PostNr = new JLabel(postNrLang);
+			PostNr.setBounds(makeRectangleForShowOne());
+			defualtPane.add(PostNr);
 
-			JTextField writeClientPostNr = new JTextField(postNrS);
-			writeClientPostNr.setBounds(makeRectangleForShowOne());
-			defualtPane.add(writeClientPostNr);
+			JTextField writePostNr = new JTextField(postNrS);
+			writePostNr.setBounds(makeRectangleForShowOne());
+			defualtPane.add(writePostNr);
 
-			JLabel clientAdress = new JLabel(adressLang);
-			clientAdress.setBounds(makeRectangleForShowOne());
-			defualtPane.add(clientAdress);
+			JLabel Adress = new JLabel(adressLang);
+			Adress.setBounds(makeRectangleForShowOne());
+			defualtPane.add(Adress);
 
-			JTextField writeClientAdress = new JTextField(adressS);
-			writeClientAdress.setBounds(makeRectangleForShowOne());
-			defualtPane.add(writeClientAdress);
+			JTextField writeAdress = new JTextField(adressS);
+			writeAdress.setBounds(makeRectangleForShowOne());
+			defualtPane.add(writeAdress);
+			
+			if(type != 3)
+			{
+			JLabel Email = new JLabel(emailLang);
+			Email.setBounds(makeRectangleForShowOne());
+			defualtPane.add(Email);
 
-			JLabel clientEmail = new JLabel(emailLang);
-			clientEmail.setBounds(makeRectangleForShowOne());
-			defualtPane.add(clientEmail);
+			writeEmail = new JTextField(emailS);
+			writeEmail.setBounds(makeRectangleForShowOne());
+			defualtPane.add(writeEmail);
+			}
+			else
+			{
+				JLabel caseType = new JLabel(caseTypeLang);
+				caseType.setBounds(makeRectangleForShowOne());
+				defualtPane.add(caseType);
 
-			JTextField writeClientEmail = new JTextField(emailS);
-			writeClientEmail.setBounds(makeRectangleForShowOne());
-			defualtPane.add(writeClientEmail);
+				writeCaseType = new JTextField(caseTypeS);
+				writeCaseType.setBounds(makeRectangleForShowOne());
+				defualtPane.add(writeCaseType);
+			}
 
-			JLabel clientID = new JLabel(IDLang + " : " + IDS); // Get ID from
-			// database when
-			// the record is
-			// made by the
-			// bottom click.
-			clientID.setBounds(paneWidth - 120, 10, 100, 20);
-			defualtPane.add(clientID);
+			JLabel IDLabel = new JLabel(IDLang + " : " + IDS);
+			IDLabel.setBounds(paneWidth - 120, 10, 100, 20);
+			defualtPane.add(IDLabel);
 
 			String timeNow = Timestamp.convert(Timestamp.getTimeNow());
-			JLabel clientIDField = new JLabel(timeNow);
-			clientIDField.setBounds(paneWidth - 150, 30, 150, 20);
-			defualtPane.add(clientIDField);
+			JLabel time = new JLabel(timeNow);
+			time.setBounds(paneWidth - 150, 30, 150, 20);
+			defualtPane.add(time);
 
 			JButton confirm = new JButton(confirmLang);
 			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
@@ -401,34 +520,52 @@ public class GUIMain extends GUILanguage {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						int clientPhone = Integer
-								.parseInt(writeClientPhoneNumber
-										.getText());
-						int clientPostNr = Integer.parseInt(writeClientPostNr.getText());
-						saveClient(clientPhone, writeFirstName.getText(), writeLastName.getText(), clientPostNr, writeClientAdress.getText(), writeClientEmail.getText(), ID);
-						
+						int Phone = Integer.parseInt(writePhoneNumber.getText());
+						int PostNr = Integer.parseInt(writePostNr.getText());
+						int departmentNr = 2;
+						int employeeID = 2;
+						int clientID = 2;
+						if (type == 1) {
+							saveClient(Phone, writeFirstName.getText(),
+									writeLastName.getText(), PostNr,
+									writeAdress.getText(),
+									writeEmail.getText(), ID);
+						} else if (type == 2) {
+
+						} else if (type == 3) {
+							saveCase(ID, writeTitleName.getText(),
+									writeAdress.getText(), (short) PostNr, writeCaseType.getText(), (byte) departmentNr,
+									employeeID, clientID);
+						}
 					} catch (NumberFormatException n) {
 						JOptionPane.showMessageDialog(null,
 								"Phone number is invalid");
-						
+
 						return;
 					}
 					showMenu();
-					}
-				
+				}
+
 			});
 			defualtPane.add(confirm);
 		}
 	}
 
-	protected void showMenu()
-	{
+	protected void showMenu() {
 		defualtPane.setVisible(false);
 		scrollPane.setVisible(false);
 	}
 
-	protected void saveClient(int phoneNumber, String firstName, String lastName, int postNr, String address, String email, int ID) {
-		guiController.update(new Client(ID, firstName, address, (short) postNr, phoneNumber, lastName, email));
+	protected void saveClient(int phoneNumber, String firstName,
+			String lastName, int postNr, String address, String email, int ID) {
+		guiController.updateClient(new Client(ID, firstName, address,
+				(short) postNr, phoneNumber, lastName, email));
+	}
+
+	protected void saveCase(int ID, String title, String address, short postNr,
+			String caseType, byte department, int employeeID, int clientID) {
+		guiController.updateCase(new Case(ID, title, address, postNr, caseType,
+				department, employeeID, clientID));
 	}
 
 	private void defualtPaneRectangleReset() {

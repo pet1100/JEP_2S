@@ -22,4 +22,5 @@ public class GUILanguage extends JFrame
 	protected static String caseLang = "Case";
 	protected static String workLang = "Worker";
 	protected static String titleLang = "Title";
+	protected static String caseTypeLang = "Type of case";
 }

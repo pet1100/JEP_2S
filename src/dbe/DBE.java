@@ -13,11 +13,11 @@ public class DBE {
 	private String address;
 	private short zipCode;
 	private String city;
-	public DBE(int id, String name, String address, int i){
+	public DBE(int id, String name, String address, int zipCode){
 		this.id = id;
 		this.name = name;
 		this.address = address; 
-		this.zipCode = (short) i;
+		this.zipCode = (short) zipCode;
 		active = true;
 		//String city;	skal hentes fra db	
 	}
