@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dbe.Case;
 import dbe.Client;
+import dbe.Employee;
 import fw.FWcontroller;
 
 public class GUIMain extends GUILanguage {
@@ -172,13 +173,14 @@ public class GUIMain extends GUILanguage {
 	protected void showWorkerList() {
 		if(scrollPaneThere()) {
 			model.setRowCount(0);
-			model.setColumnIdentifiers(new Object[] { IDLang, cityLang, postNrLang, datoLang, caseLang + "" + adressLang, clientLang + " " + nameLang  });
+			model.setColumnIdentifiers(new Object[] { IDLang, nameLang, adressLang, postNrLang, cityLang});
 
 			ResultSet rs = guiController.workerReadAll();
+			
 		
 			try {
 				while (rs.next()) {
-					model.addRow(new Object[] {rs.getString(1)});
+					model.addRow(new Object[] {rs.getString(1), rs.getString(2) + " " + rs.getString(3), rs.getString(6), rs.getString(7), rs.getString(15)});
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -195,7 +197,7 @@ public class GUIMain extends GUILanguage {
 					if (lastRow == row) {
 						int i = Integer.parseInt(model.getValueAt(row, 0)
 								.toString());
-						showOne(3, i);
+						showOne(2, i);
 					}
 					lastRow = row;
 				}
@@ -409,6 +411,21 @@ public class GUIMain extends GUILanguage {
 
 				break;
 			case 2:
+				try{
+				ResultSet rs = guiController.workerRead(ID);
+				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+					System.out.println(rs.getMetaData().getColumnName(i));
+				}
+				if (rs.next()) {
+					firstNameS = rs.getString(2);
+					lastNameS = rs.getString(3);
+					adressS = rs.getString(6);
+					postNrS = rs.getString(7);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 				break;
 			case 3:
 				break;
@@ -467,9 +484,9 @@ public class GUIMain extends GUILanguage {
 			writePhoneNumber.setBounds(makeRectangleForShowOne());
 			defualtPane.add(writePhoneNumber);
 
-			JLabel PostNr = new JLabel(postNrLang);
-			PostNr.setBounds(makeRectangleForShowOne());
-			defualtPane.add(PostNr);
+			JLabel postNrLabel = new JLabel(postNrLang);
+			postNrLabel.setBounds(makeRectangleForShowOne());
+			defualtPane.add(postNrLabel);
 
 			JTextField writePostNr = new JTextField(postNrS);
 			writePostNr.setBounds(makeRectangleForShowOne());
@@ -520,21 +537,22 @@ public class GUIMain extends GUILanguage {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						int Phone = Integer.parseInt(writePhoneNumber.getText());
-						int PostNr = Integer.parseInt(writePostNr.getText());
+						int phone = Integer.parseInt(writePhoneNumber.getText());
+						short postNr = (short) Integer.parseInt(writePostNr.getText());
 						int departmentNr = 2;
 						int employeeID = 2;
 						int clientID = 2;
 						if (type == 1) {
-							saveClient(Phone, writeFirstName.getText(),
-									writeLastName.getText(), PostNr,
+							saveClient(phone, writeFirstName.getText(),
+									writeLastName.getText(), postNr,
 									writeAdress.getText(),
 									writeEmail.getText(), ID);
+							
 						} else if (type == 2) {
-
+							saveWorker(ID, writeFirstName.getText(), writeAdress.getText(), (short) postNr, phone, writeLastName.getText());
 						} else if (type == 3) {
 							saveCase(ID, writeTitleName.getText(),
-									writeAdress.getText(), (short) PostNr, writeCaseType.getText(), (byte) departmentNr,
+									writeAdress.getText(), (short) postNr, writeCaseType.getText(), (byte) departmentNr,
 									employeeID, clientID);
 						}
 					} catch (NumberFormatException n) {
@@ -555,9 +573,13 @@ public class GUIMain extends GUILanguage {
 		defualtPane.setVisible(false);
 		scrollPane.setVisible(false);
 	}
+	
+	protected void saveWorker(int ID, String firstName, String address, short postNr, int phone, String lastName) {
+		guiController.workerUpdate(new Employee(ID, firstName, address, postNr, phone, lastName));
+	}
 
 	protected void saveClient(int phoneNumber, String firstName,
-			String lastName, int postNr, String address, String email, int ID) {
+			String lastName, short postNr, String address, String email, int ID) {
 		guiController.updateClient(new Client(ID, firstName, address,
 				(short) postNr, phoneNumber, lastName, email));
 	}

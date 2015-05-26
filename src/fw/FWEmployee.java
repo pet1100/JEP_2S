@@ -21,6 +21,8 @@ public class FWEmployee extends DBAddress {
 	public ResultSet read(int id) {
 		
 		ResultSet rs = null;
+		CachedRowSetImpl crs = null;
+		
 		try {
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
@@ -30,12 +32,9 @@ public class FWEmployee extends DBAddress {
 			 rs = s.executeQuery("Select * from Medarbejder WHERE Medarbejder_Id = '"+id+"' "
 			 		+ " order by Medarbejder_Id");
 
+			 crs = new CachedRowSetImpl();
+			 crs.populate(rs);
 
-
-
-
-
-			
 			con.close();
 			s.close();
 		} catch (SQLException sqlex) {
@@ -50,7 +49,7 @@ public class FWEmployee extends DBAddress {
 			System.out.println(noClass.getMessage());
 			System.exit(1); // terminate program
 		} 
-		return rs; // id(skal du ikkebruge navn efternavn tlf email adresse postnr dato
+		return crs; // id(skal du ikkebruge navn efternavn tlf email adresse postnr dato
 		
 	
 	}
@@ -63,9 +62,10 @@ public class FWEmployee extends DBAddress {
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-	
-			 String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Userlevel = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Userlevel = ? "
-			 		+ " where Kunde_Id = ("+name.getId()+")";
+			
+			System.out.println(name.getId());
+			 String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Userlevel = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Userlevel = ?, Medarbejder_Adresse = ? "
+			 		+ " where medarbejder_Id = ("+name.getId()+")";
 		      PreparedStatement preparedStmt = con.prepareStatement(query);
 		      preparedStmt.setString(1, name.getName());
 		      preparedStmt.setString(2, name.getLastName());
@@ -73,7 +73,7 @@ public class FWEmployee extends DBAddress {
 		      preparedStmt.setString(4, name.getPassWord());
 		      preparedStmt.setInt(5, name.getZipCode());
 		      preparedStmt.setByte(6, name.getUserlevel());
-		      
+		      preparedStmt.setString(7, name.getAddress());
 		 
 		      
 		     
@@ -81,9 +81,6 @@ public class FWEmployee extends DBAddress {
 		      preparedStmt.execute();
 		 
 		      
-		
-
-		     
 		   
 			
 			con.close();

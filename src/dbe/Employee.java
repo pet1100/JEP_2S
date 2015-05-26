@@ -13,13 +13,10 @@ public class Employee extends DBE {
 	private String passWord;
 	private String userName;
 	public Employee(int id, String name, String address,
-			short zipCode,int tlf, String lastName, byte userlevel, String passWord, String userName) {
+			short zipCode,int tlf, String lastName) {
 		super(id, name, address, zipCode);
 		this.tlf = tlf;
 		this.lastName = lastName;
-		this.userlevel = userlevel;
-		this.passWord = passWord;
-		this.userName = userName;
 	}
 
 	public int getTlf() {
