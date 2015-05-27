@@ -13,8 +13,8 @@ public class Invoice extends Case {
 			short zipCode, String type, Byte department, int employeeID,
 			int clientID) {
 		super(id, name, address, zipCode, type, department, employeeID,
-				clientID);
-		// TODO Auto-generated constructor stub
+				clientID);// nedarvet fra dbe case
+
 	}
 
 

@@ -14,7 +14,7 @@ public class Employee extends DBE {
 	private String userName;
 	public Employee(int id, String name, String address,
 			short zipCode,int tlf, String lastName) {
-		super(id, name, address, zipCode);
+		super(id, name, address, zipCode);// nedarvet fra dbe class
 		this.tlf = tlf;
 		this.lastName = lastName;
 	}

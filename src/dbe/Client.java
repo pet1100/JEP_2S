@@ -11,7 +11,7 @@ public class Client extends DBE {
 	private String email;
 	public Client(int id, String name, String address,
 			short zipCode, int tlf, String lastName, String email) {
-		super(id, name, address, zipCode);
+		super(id, name, address, zipCode);// nedarvet fra dbe class
 		this.tlf = tlf;
 		this.lastName = lastName;
 		this.email = email;

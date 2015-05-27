@@ -10,9 +10,9 @@ public class Offer extends Case {
 	private ArrayList<Prices> priceList;
 	public Offer(int id, String name, String address,
 			short zipCode, String type, Byte department, int employeeID,
-			int clientID) {
+			int clientID, int rentalDays) {
 		super(id, name, address, zipCode, type, department, employeeID,
-				clientID);
+				clientID);// nedarvet fra dbe class
 		this.rentalDays = rentalDays;
 		priceList = new ArrayList<Prices>();
 	}

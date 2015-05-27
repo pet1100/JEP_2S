@@ -17,10 +17,7 @@ public class FWcontroller {
 	public static FWEmployee em = new FWEmployee();
 	static DBAddress db = new DBAddress();;
 	static Connection con;
-	public static void main(String[] args) throws SQLException {
-				clientReadAll();
 	
-	}	
 	
 		
 	
