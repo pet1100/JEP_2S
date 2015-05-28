@@ -8,10 +8,11 @@ import dbe.Client;
 import dbe.Employee;
 import fw.FWcontroller;
 
+//
 public class GUIController
 {
 	
-	//All with case
+	//All methodes with case
 	protected ResultSet caseReadAll()
 	{
 		return FWcontroller.caseReadAll();
@@ -26,14 +27,13 @@ public class GUIController
 	{
 		FWcontroller.caseUpdate(c);
 	}
-	
+
 	protected int caseCreate()
 	{
 		return FWcontroller.createCase();
 	}
 	
-	
-	//All with client
+	//All methodes with client
 	protected ResultSet clientReadAll()
 	{
 		return FWcontroller.clientReadAll();
@@ -53,7 +53,7 @@ public class GUIController
 		return FWcontroller.clientCreate();
 	}
 	
-	//All with worker (Not implemented)
+	//All methodes with worker
 	protected ResultSet workerReadAll()
 	{
 		return FWcontroller.employeeReadAll();

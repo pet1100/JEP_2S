@@ -1,8 +1,8 @@
 package time;
-import java.util.Date;
-import java.text.ParseException;
+//@Elinor M.
+
 import java.text.SimpleDateFormat;
-//@Elinor
+import java.util.Date;
 
 public class Timestamp  {
 	private static String stringdate;

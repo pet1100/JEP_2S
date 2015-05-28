@@ -3,7 +3,8 @@ package gui;
 
 import javax.swing.JFrame;
 
-
+//keeps the string of all words used in GUImain.
+//The reason it extends JFrame is because GUIMain extends this class.
 public class GUILanguage extends JFrame
 {
 	protected static String menuLang = "Menu";

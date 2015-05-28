@@ -1,5 +1,6 @@
 package gui;
-//@Peter J.
+
+// @Peter J.
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,7 +33,10 @@ import dbe.Case;
 import dbe.Client;
 import dbe.Employee;
 
-public class GUIMain extends GUILanguage {
+// This class is making all the GUI (except the login) and a few methodes that helps the GUI (like
+// makenewrectagnle, and look n' feel)
+public class GUIMain extends GUILanguage
+{
 
 	protected static JPanel menuBar = new JPanel();
 	private GUILogin actionListener = new GUILogin();
@@ -49,6 +53,7 @@ public class GUIMain extends GUILanguage {
 	private int rectangleH;
 	private boolean rectangleTrue;
 
+	//Do the following code on load. (make the look and feel, make a login and then make the program GUI.)
 	{
 		lookNFeel();
 		actionListener.login();
@@ -64,37 +69,45 @@ public class GUIMain extends GUILanguage {
 		setVisible(true);
 		setResizable(false);
 		setTitle(menuLang);
-
 		makeMenuButtons();
-
-		addWindowListener(new WindowListener() {
+		
+		//Add window listener, so we can make the window close in a specific way.
+		addWindowListener(new WindowListener()
+		{
 			@Override
-			public void windowOpened(WindowEvent e) {
+			public void windowOpened(WindowEvent e)
+			{
 			}
 
 			@Override
-			public void windowIconified(WindowEvent e) {
+			public void windowIconified(WindowEvent e)
+			{
 			}
 
 			@Override
-			public void windowDeiconified(WindowEvent e) {
+			public void windowDeiconified(WindowEvent e)
+			{
 			}
 
 			@Override
-			public void windowDeactivated(WindowEvent e) {
+			public void windowDeactivated(WindowEvent e)
+			{
 			}
 
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e)
+			{
 				closeSystem();
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {
+			public void windowClosed(WindowEvent e)
+			{
 			}
 
 			@Override
-			public void windowActivated(WindowEvent e) {
+			public void windowActivated(WindowEvent e)
+			{
 			}
 		});
 
@@ -102,64 +115,82 @@ public class GUIMain extends GUILanguage {
 		add(defualtPane);
 		setVisible(true);
 
-		if (paneWidth == 0 || paneHeight == 0) {
+		if (paneWidth == 0 || paneHeight == 0)
+		{
 			paneWidth = defualtPane.getSize().width;
 			paneHeight = defualtPane.getSize().height;
 		}
 		defualtPane.setVisible(false);
 	}
 
-	public static DefaultTableModel model = new DefaultTableModel() {
+	// add a default table model that can't be made any change in.
+	public static DefaultTableModel model = new DefaultTableModel()
+	{
 		@Override
-		public boolean isCellEditable(int row, int column) {
+		public boolean isCellEditable(int row, int column)
+		{
 			return false;
 		}
 	};
-
-	protected void closeSystem() {
+	
+	//Close operation when pressing the x button.
+	protected void closeSystem()
+	{
 		System.exit(1);
 	}
 
-	private void makeMenuButtons() {
+	//Make the buttons on the menu bar on the bottom of the screen.
+	private void makeMenuButtons()
+	{
 		JPanel menuButtons = new JPanel();
-		menuButtons.setLayout(new GridLayout(1, 3));
+		menuButtons.setLayout(new GridLayout(1, 5));
 
 		JButton toMainMenu = new JButton(menuLang);
-		toMainMenu.addActionListener(new ActionListener() {
+		toMainMenu.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				showMenu();
 			}
 		});
-		
+
 		JButton toCases = new JButton(caseLang);
-		toCases.addActionListener(new ActionListener() {
+		toCases.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				showCaseList();
 			}
 		});
 
 		JButton toKunder = new JButton(clientLang);
-		toKunder.addActionListener(new ActionListener() {
+		toKunder.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				showClientList();
 			}
 		});
-		
+
 		JButton toEmpoyee = new JButton(workLang);
-		toEmpoyee.addActionListener(new ActionListener() {
+		toEmpoyee.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				showWorkerList();
 			}
 		});
 
 		JButton makeNew = new JButton(newLang);
-		makeNew.addActionListener(new ActionListener() {
+		makeNew.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				showNew();
 			}
 		});
@@ -171,32 +202,44 @@ public class GUIMain extends GUILanguage {
 		menuButtons.add(makeNew);
 		add(menuButtons, BorderLayout.SOUTH);
 	}
-
-	protected void showWorkerList() {
-		if(scrollPaneThere()) {
+	
+	//Show a tabel of all workers.
+	protected void showWorkerList()
+	{
+		if (scrollPaneThere())
+		{
 			model.setRowCount(0);
-			model.setColumnIdentifiers(new Object[] { IDLang, nameLang, adressLang, postNrLang, cityLang});
+			model.setColumnIdentifiers(new Object[]
+			{ IDLang, nameLang, adressLang, postNrLang, cityLang });
 
 			ResultSet rs = guiController.workerReadAll();
-			
-		
-			try {
-				while (rs.next()) {
-					model.addRow(new Object[] {rs.getString(1), rs.getString(2) + " " + rs.getString(3), rs.getString(6), rs.getString(7), rs.getString(15)});
+
+			try
+			{
+				while (rs.next())
+				{
+					model.addRow(new Object[]
+					{ rs.getString(1), rs.getString(2) + " " + rs.getString(3),
+							rs.getString(6), rs.getString(7), rs.getString(15) });
 				}
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				e.printStackTrace();
 			}
-			
+
 			JTable table = new JTable(model);
-			table.addMouseListener(new MouseAdapter() {
+			table.addMouseListener(new MouseAdapter()
+			{
 				int lastRow = -1;
 
 				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
+				public void mouseClicked(java.awt.event.MouseEvent evt)
+				{
 					int row = table.rowAtPoint(evt.getPoint());
 
-					if (lastRow == row) {
+					if (lastRow == row)
+					{
 						int i = Integer.parseInt(model.getValueAt(row, 0)
 								.toString());
 						showOne(2, i);
@@ -212,30 +255,45 @@ public class GUIMain extends GUILanguage {
 		}
 	}
 
-	protected void showCaseList() {
-		if(scrollPaneThere()) {
+	//Show a tabel of all cases.
+	protected void showCaseList()
+	{
+		if (scrollPaneThere())
+		{
 			model.setRowCount(0);
-			model.setColumnIdentifiers(new Object[] { IDLang, cityLang, postNrLang, datoLang, caseLang + "" + adressLang, clientLang + " " + nameLang  });
+			model.setColumnIdentifiers(new Object[]
+			{ IDLang, cityLang, postNrLang, datoLang,
+					caseLang + "" + adressLang, clientLang + " " + nameLang });
 
 			ResultSet rs = guiController.caseReadAll();
-		
-			try {
-				while (rs.next()) {
-					model.addRow(new Object[] {rs.getInt(14), rs.getString(7), rs.getShort(6), rs.getString(3), rs.getString(5), rs.getString(8) + " " + rs.getString(9) });
+
+			try
+			{
+				while (rs.next())
+				{
+					model.addRow(new Object[]
+					{ rs.getInt(14), rs.getString(7), rs.getShort(6),
+							rs.getString(3), rs.getString(5),
+							rs.getString(8) + " " + rs.getString(9) });
 				}
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				e.printStackTrace();
 			}
-			
+
 			JTable table = new JTable(model);
-			table.addMouseListener(new MouseAdapter() {
+			table.addMouseListener(new MouseAdapter()
+			{
 				int lastRow = -1;
 
 				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
+				public void mouseClicked(java.awt.event.MouseEvent evt)
+				{
 					int row = table.rowAtPoint(evt.getPoint());
 
-					if (lastRow == row) {
+					if (lastRow == row)
+					{
 						int i = Integer.parseInt(model.getValueAt(row, 0)
 								.toString());
 						showOne(3, i);
@@ -251,35 +309,45 @@ public class GUIMain extends GUILanguage {
 		}
 	}
 
-	protected void showClientList() {
-		if(scrollPaneThere()) {
+	//Show a tabel of all clients.
+	protected void showClientList()
+	{
+		if (scrollPaneThere())
+		{
 			model.setRowCount(0);
-			model.setColumnIdentifiers(new Object[] { IDLang, nameLang,
-					phoneLang, emailLang, adressLang, cityLang, postNrLang,
-					datoLang });
+			model.setColumnIdentifiers(new Object[]
+			{ IDLang, nameLang, phoneLang, emailLang, adressLang, cityLang,
+					postNrLang, datoLang });
 
 			ResultSet rs = guiController.clientReadAll();
 
-			try {
-				while (rs.next()) {
-					model.addRow(new Object[] { rs.getInt(9),
-							rs.getString(1) + " " + rs.getString(2),
+			try
+			{
+				while (rs.next())
+				{
+					model.addRow(new Object[]
+					{ rs.getInt(9), rs.getString(1) + " " + rs.getString(2),
 							rs.getString(3), rs.getString(4), rs.getString(5),
 							rs.getString(8), rs.getString(7), rs.getString(6) });
 				}
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				e.printStackTrace();
 			}
 
 			JTable table = new JTable(model);
-			table.addMouseListener(new MouseAdapter() {
+			table.addMouseListener(new MouseAdapter()
+			{
 				int lastRow = -1;
 
 				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
+				public void mouseClicked(java.awt.event.MouseEvent evt)
+				{
 					int row = table.rowAtPoint(evt.getPoint());
 
-					if (lastRow == row) {
+					if (lastRow == row)
+					{
 						int i = Integer.parseInt(model.getValueAt(row, 0)
 								.toString());
 						showOne(1, i);
@@ -295,25 +363,33 @@ public class GUIMain extends GUILanguage {
 		}
 	}
 
-	private boolean scrollPaneThere() {
+	//check the scrollpane if it is visible.
+	private boolean scrollPaneThere()
+	{
 		scrollPane.removeAll();
 		defualtPane.setVisible(false);
-		if (scrollPane.isVisible()) {
+		if (scrollPane.isVisible())
+		{
 			scrollPane.setVisible(false);
 			return false;
 		}
 		return true;
 	}
-
-	protected void showNew() {
+	
+	//Show a GUI for create new client, worker or case.
+	protected void showNew()
+	{
 		defualtPane.removeAll();
 		scrollPane.setVisible(false);
-		if (defualtPane.isVisible() && getTitle().equals(newLang)) {
+		if (defualtPane.isVisible() && getTitle().equals(newLang))
+		{
 
 			defualtPane.setVisible(false);
 			setTitle(menuLang);
 			return;
-		} else {
+		}
+		else
+		{
 			defualtPane.setVisible(false);
 			defualtPane.removeAll();
 			defualtPaneRectangleReset();
@@ -322,7 +398,8 @@ public class GUIMain extends GUILanguage {
 			add(defualtPane);
 			setVisible(true);
 
-			if (paneWidth == 0 || paneHeight == 0) {
+			if (paneWidth == 0 || paneHeight == 0)
+			{
 				paneWidth = defualtPane.getSize().width;
 				paneHeight = defualtPane.getSize().height;
 			}
@@ -331,23 +408,27 @@ public class GUIMain extends GUILanguage {
 
 			JButton newClient = new JButton(clientLang);
 			newClient.setBounds(makeRectangleForNew());
-			newClient.addActionListener(new ActionListener() {
+			newClient.addActionListener(new ActionListener()
+			{
 
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e)
+				{
 					defualtPane.setVisible(false);
 					int ID = guiController.clientCreate();
 					showOne(1, ID);
 				}
 			});
 			defualtPane.add(newClient);
-			
+
 			JButton newCase = new JButton(caseLang);
 			newCase.setBounds(makeRectangleForNew());
-			newCase.addActionListener(new ActionListener() {
+			newCase.addActionListener(new ActionListener()
+			{
 
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e)
+				{
 					defualtPane.setVisible(false);
 					int ID = guiController.caseCreate();
 					showOne(3, ID);
@@ -357,10 +438,12 @@ public class GUIMain extends GUILanguage {
 
 			JButton newWorker = new JButton(workLang);
 			newWorker.setBounds(makeRectangleForNew());
-			newWorker.addActionListener(new ActionListener() {
+			newWorker.addActionListener(new ActionListener()
+			{
 
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e)
+				{
 					defualtPane.setVisible(false);
 					int ID = guiController.workerCreate();
 					showOne(2, ID);
@@ -379,7 +462,9 @@ public class GUIMain extends GUILanguage {
 	private JTextField writeCaseType = null;
 	private JTextField writePhoneNumber = null;
 
-	protected void showOne(int type, int ID) {
+	//Show a GUI for one case, client or worker with info.
+	protected void showOne(int type, int ID)
+	{
 		String firstNameS = "";
 		String lastNameS = "";
 		String titleS = "";
@@ -389,59 +474,71 @@ public class GUIMain extends GUILanguage {
 		String emailS = "";
 		String IDS = "";
 		String caseTypeS = "";
-		
 
-		if (ID != -1) {
-			switch (type) {
-			case 1:
-				try {
-					ResultSet rs = guiController.clientRead(ID);
-					if (rs.next()) {
-						// ID = rs.getString(1);
-						// date of creation = rs.getString(8);
-						firstNameS = rs.getString(2);
-						lastNameS = rs.getString(3);
-						phoneS = rs.getString(4);
-						emailS = rs.getString(5);
-						adressS = rs.getString(6);
-						postNrS = rs.getString(7);
+		if (ID != -1)
+		{
+			switch (type)
+			{
+				case 1:
+					try
+					{
+						ResultSet rs = guiController.clientRead(ID);
+						if (rs.next())
+						{
+							firstNameS = rs.getString(2);
+							lastNameS = rs.getString(3);
+							phoneS = rs.getString(4);
+							emailS = rs.getString(5);
+							adressS = rs.getString(6);
+							postNrS = rs.getString(7);
+						}
 					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+					catch (SQLException e)
+					{
+						e.printStackTrace();
+					}
 
-				break;
-			case 2:
-				try{
-				ResultSet rs = guiController.workerRead(ID);
-				if (rs.next()) {
-					firstNameS = rs.getString(2);
-					lastNameS = rs.getString(3);
-					adressS = rs.getString(6);
-					postNrS = rs.getString(7);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-				break;
-			case 3:
-				break;
-			default:
-				break;
+					break;
+				case 2:
+					try
+					{
+						ResultSet rs = guiController.workerRead(ID);
+						if (rs.next())
+						{
+							firstNameS = rs.getString(2);
+							lastNameS = rs.getString(3);
+							adressS = rs.getString(6);
+							postNrS = rs.getString(7);
+						}
+					}
+					catch (SQLException e)
+					{
+						e.printStackTrace();
+					}
+
+					break;
+				case 3:
+					break;
+				default:
+					break;
 			}
 			IDS = "" + ID;
-		} else {
+		}
+		else
+		{
 
 		}
 		defualtPane.removeAll();
 		scrollPane.setVisible(false);
-		if (defualtPane.isVisible()) {
+		if (defualtPane.isVisible())
+		{
 
 			defualtPane.setVisible(false);
 			setTitle(menuLang);
 			return;
-		} else {
+		}
+		else
+		{
 			defualtPaneRectangleReset();
 			defualtPane.setVisible(true);
 			add(defualtPane);
@@ -449,7 +546,8 @@ public class GUIMain extends GUILanguage {
 
 			setTitle(clientLang);
 
-			if (type != 3) {
+			if (type != 3)
+			{
 				JLabel firstName = new JLabel(firstNameLang);
 				firstName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(firstName);
@@ -465,7 +563,9 @@ public class GUIMain extends GUILanguage {
 				writeLastName = new JTextField(lastNameS);
 				writeLastName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeLastName);
-			} else {
+			}
+			else
+			{
 				JLabel titleName = new JLabel(titleLang);
 				titleName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(titleName);
@@ -474,15 +574,15 @@ public class GUIMain extends GUILanguage {
 				writeTitleName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeTitleName);
 			}
-			if(type != 2)
+			if (type != 2)
 			{
-			JLabel PhoneNumber = new JLabel(phoneLang);
-			PhoneNumber.setBounds(makeRectangleForShowOne());
-			defualtPane.add(PhoneNumber);
-			
-			writePhoneNumber = new JTextField(phoneS);
-			writePhoneNumber.setBounds(makeRectangleForShowOne());
-			defualtPane.add(writePhoneNumber);
+				JLabel PhoneNumber = new JLabel(phoneLang);
+				PhoneNumber.setBounds(makeRectangleForShowOne());
+				defualtPane.add(PhoneNumber);
+
+				writePhoneNumber = new JTextField(phoneS);
+				writePhoneNumber.setBounds(makeRectangleForShowOne());
+				defualtPane.add(writePhoneNumber);
 			}
 
 			JLabel postNrLabel = new JLabel(postNrLang);
@@ -500,16 +600,16 @@ public class GUIMain extends GUILanguage {
 			JTextField writeAdress = new JTextField(adressS);
 			writeAdress.setBounds(makeRectangleForShowOne());
 			defualtPane.add(writeAdress);
-			
-			if(type != 3)
-			{
-			JLabel Email = new JLabel(emailLang);
-			Email.setBounds(makeRectangleForShowOne());
-			defualtPane.add(Email);
 
-			writeEmail = new JTextField(emailS);
-			writeEmail.setBounds(makeRectangleForShowOne());
-			defualtPane.add(writeEmail);
+			if (type != 3)
+			{
+				JLabel Email = new JLabel(emailLang);
+				Email.setBounds(makeRectangleForShowOne());
+				defualtPane.add(Email);
+
+				writeEmail = new JTextField(emailS);
+				writeEmail.setBounds(makeRectangleForShowOne());
+				defualtPane.add(writeEmail);
 			}
 			else
 			{
@@ -533,30 +633,44 @@ public class GUIMain extends GUILanguage {
 
 			JButton confirm = new JButton(confirmLang);
 			confirm.setBounds(paneWidth - 120, paneHeight - 40, 100, 20);
-			confirm.addActionListener(new ActionListener() {
+			confirm.addActionListener(new ActionListener()
+			{
 
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
+				public void actionPerformed(ActionEvent e)
+				{
+					try
+					{
 						int phone = Integer.parseInt(writePhoneNumber.getText());
-						short postNr = (short) Integer.parseInt(writePostNr.getText());
+						short postNr = (short) Integer.parseInt(writePostNr
+								.getText());
 						int departmentNr = 2;
 						int employeeID = 2;
 						int clientID = 2;
-						if (type == 1) {
+						if (type == 1)
+						{
 							saveClient(phone, writeFirstName.getText(),
 									writeLastName.getText(), postNr,
 									writeAdress.getText(),
 									writeEmail.getText(), ID);
-							
-						} else if (type == 2) {
-							saveWorker(ID, writeFirstName.getText(), writeAdress.getText(), (short) postNr, phone, writeLastName.getText());
-						} else if (type == 3) {
-							saveCase(ID, writeTitleName.getText(),
-									writeAdress.getText(), (short) postNr, writeCaseType.getText(), (byte) departmentNr,
-									employeeID, clientID);
+
 						}
-					} catch (NumberFormatException n) {
+						else if (type == 2)
+						{
+							saveWorker(ID, writeFirstName.getText(),
+									writeAdress.getText(), (short) postNr,
+									phone, writeLastName.getText());
+						}
+						else if (type == 3)
+						{
+							saveCase(ID, writeTitleName.getText(),
+									writeAdress.getText(), (short) postNr,
+									writeCaseType.getText(),
+									(byte) departmentNr, employeeID, clientID);
+						}
+					}
+					catch (NumberFormatException n)
+					{
 						JOptionPane.showMessageDialog(null,
 								"Phone number is invalid");
 
@@ -570,28 +684,40 @@ public class GUIMain extends GUILanguage {
 		}
 	}
 
-	protected void showMenu() {
+	//Show main menu.
+	protected void showMenu()
+	{
 		defualtPane.setVisible(false);
 		scrollPane.setVisible(false);
 	}
-	
-	protected void saveWorker(int ID, String firstName, String address, short postNr, int phone, String lastName) {
-		guiController.workerUpdate(new Employee(ID, firstName, address, postNr, phone, lastName));
-	}
 
+	//Save the worker with a new object.
+	protected void saveWorker(int ID, String firstName, String address,
+			short postNr, int phone, String lastName)
+	{
+		guiController.workerUpdate(new Employee(ID, firstName, address, postNr,
+				phone, lastName));
+	}
+	
+	//Save the client with a new object.
 	protected void saveClient(int phoneNumber, String firstName,
-			String lastName, short postNr, String address, String email, int ID) {
+			String lastName, short postNr, String address, String email, int ID)
+	{
 		guiController.updateClient(new Client(ID, firstName, address,
 				(short) postNr, phoneNumber, lastName, email));
 	}
 
+	//Save the case with a new object.
 	protected void saveCase(int ID, String title, String address, short postNr,
-			String caseType, byte department, int employeeID, int clientID) {
+			String caseType, byte department, int employeeID, int clientID)
+	{
 		guiController.updateCase(new Case(ID, title, address, postNr, caseType,
 				department, employeeID, clientID));
 	}
-
-	private void defualtPaneRectangleReset() {
+	
+	//reset the rectangle values.
+	private void defualtPaneRectangleReset()
+	{
 		rectangleY = 10;
 		rectangleX = 20;
 		rectangleW = 100;
@@ -599,49 +725,72 @@ public class GUIMain extends GUILanguage {
 		rectangleTrue = true;
 	}
 
-	private Rectangle makeRectangleForShowOne() {
+	//Makes a rectanle for one case/client or worker.
+	private Rectangle makeRectangleForShowOne()
+	{
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
 				rectangleH);
-		if (rectangleTrue) {
+		if (rectangleTrue)
+		{
 			rectangleY += 30;
 			rectangleTrue = false;
-			if (rectangleY + 60 > paneHeight) {
+			if (rectangleY + 60 > paneHeight)
+			{
 				rectangleX += 120;
 				rectangleY = 10;
 				rectangleTrue = true;
 			}
-		} else {
+		}
+		else
+		{
 			rectangleY += 40;
 			rectangleTrue = true;
 		}
 		return r;
 	}
-
-	private Rectangle makeRectangleForNew() {
+	
+	//Makes a rectanle for the buttons in new (where new case, client and worker is).
+	private Rectangle makeRectangleForNew()
+	{
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
 				rectangleH);
 		rectangleY += 30;
 
-		if (rectangleY + 60 > paneHeight) {
+		if (rectangleY + 60 > paneHeight)
+		{
 			rectangleX += 120;
 			rectangleY = 10;
 		}
 		return r;
 	}
-	
-	//@Ellinor M.
+
+	// @Ellinor M.
 	private void lookNFeel()
 	{
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) { //ser igennem listen af instaleret look and feel
-		        if ("Nimbus".equals(info.getName())) {// er look and feelet Nimbus?
-		            UIManager.setLookAndFeel(info.getClassName());// hvis ja, sæt til nimbus
-		        }
-		    }
-		} catch (Exception e) {
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());// går noget galt i loopet, sæt look and feel til samme som OS
-			} catch (Exception e2) {
+		try
+		{
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+			{ // ser igennem listen af instaleret look and feel
+				if ("Nimbus".equals(info.getName()))
+				{// er look and feelet Nimbus?
+					UIManager.setLookAndFeel(info.getClassName());// hvis ja,
+																	// sæt til
+																	// nimbus
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			try
+			{
+				UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());// går noget galt i
+															// loopet, sæt look
+															// and feel til
+															// samme som OS
+			}
+			catch (Exception e2)
+			{
 				e2.printStackTrace();
 			}
 		}

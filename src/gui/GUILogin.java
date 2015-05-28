@@ -8,10 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-// Contains all action listener except for the ones there is in makeMenuButtons in GUIMain
-
+//The login function (not fully implemented)
 public class GUILogin {
 
+	//The login GUI (doesn't do shit.)
 	public void login() {
 		JTextField userName = new JTextField(5);
 		JTextField password = new JTextField(5);
