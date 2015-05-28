@@ -63,7 +63,6 @@ public class FWEmployee extends DBAddress {
 					getpassword());
 			s = con.createStatement();
 			
-			System.out.println(name.getId());
 			 String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Userlevel = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Userlevel = ?, Medarbejder_Adresse = ? "
 			 		+ " where medarbejder_Id = ("+name.getId()+")";
 		      PreparedStatement preparedStmt = con.prepareStatement(query);

@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.DefaultTableModel;
 
 import dbe.Case;
@@ -49,6 +51,19 @@ public class GUIMain extends GUILanguage {
 	private boolean rectangleTrue;
 
 	{
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) { //ser igennem listen af instaleret look and feel
+		        if ("Nimbus".equals(info.getName())) {// er look and feelet Nimbus?
+		            UIManager.setLookAndFeel(info.getClassName());// hvis ja, sæt til nimbus
+		        }
+		    }
+		} catch (Exception e) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());// går noget galt i loopet, sæt look and feel til samme som OS
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 		actionListener.login();
 		scrollPane.setVisible(false);
 		defualtPane.setVisible(false);
