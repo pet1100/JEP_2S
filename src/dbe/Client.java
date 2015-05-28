@@ -1,9 +1,5 @@
 package dbe;
-
-import java.util.Date;
-
-import time.Timestamp;
-//@Elinor
+//@Elinor M
 
 public class Client extends DBE {
 	private int tlf;

@@ -1,11 +1,5 @@
 package dbe;
-
-import java.sql.Time;
-import java.util.Date;
-
-import time.Timestamp;
-
-//@Elinor
+//@Elinor M
 
 public class Case extends DBE {
 	private String type;

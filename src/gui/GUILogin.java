@@ -1,4 +1,5 @@
 package gui;
+//@Peter J.
 
 import java.awt.GridLayout;
 
@@ -7,9 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/*
- * Contains all action listener except for the ones there is in makeMenuButtons in GUIMain
- */
+// Contains all action listener except for the ones there is in makeMenuButtons in GUIMain
 
 public class GUILogin {
 

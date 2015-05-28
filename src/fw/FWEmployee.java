@@ -1,4 +1,6 @@
 package fw;
+//@Jannik E.
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -6,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import dbe.*;
-
-import java.sql.*;
-
 import com.sun.rowset.CachedRowSetImpl;
+
+import dbe.DBAddress;
+import dbe.Employee;
+
 public class FWEmployee extends DBAddress {
 
 	private Connection con;

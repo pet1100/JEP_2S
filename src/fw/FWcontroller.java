@@ -1,15 +1,14 @@
 package fw;
+//@Jannik E.
 
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 import dbe.Case;
 import dbe.Client;
 import dbe.DBAddress;
-import dbe.DBE;
 import dbe.Employee;
-import time.Timestamp;
-
-import java.sql.*;
 
 public class FWcontroller {
 	public static  FWCase cs = new FWCase () ;
@@ -19,10 +18,6 @@ public class FWcontroller {
 	static Connection con;
 	
 	
-		
-	
-
-	private ResultSet resultat;
 
 	public static ResultSet caseRead(int id) {
 		

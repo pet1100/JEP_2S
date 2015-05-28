@@ -1,9 +1,9 @@
 package fw;
+//@Jannik E.
+
 import java.util.ArrayList;
 
 import dbe.DBAddress;
-import dbe.*;
-import java.util.*;
 
 public class FWlanguage extends DBAddress {
 

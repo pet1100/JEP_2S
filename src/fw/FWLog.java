@@ -1,6 +1,7 @@
 package fw;
+//@Jannik E.
+
 import dbe.DBAddress;
-import dbe.*;
 
 public class FWLog extends DBAddress {
 

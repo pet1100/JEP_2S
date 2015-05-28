@@ -1,8 +1,5 @@
 package gui;
-//@Elinor
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-
+//@Peter J.
 
 public class GUIRun
 {

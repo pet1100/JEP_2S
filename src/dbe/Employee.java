@@ -1,8 +1,4 @@
 package dbe;
-
-import java.util.Date;
-
-import time.Timestamp;
 //@Elinor
 
 public class Employee extends DBE {

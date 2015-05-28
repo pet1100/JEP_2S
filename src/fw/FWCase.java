@@ -1,9 +1,12 @@
 package fw;
+//@Jannik E.
 
-import dbe.Case;
-import dbe.DBAddress;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.sun.rowset.CachedRowSetImpl;
 
@@ -19,7 +22,6 @@ public class FWCase extends dbe.DBAddress {
 
 	public ResultSet read(int id) {
 
-		String txt = null;
 		ResultSet rs = null;
 		try {
 			Statement s = null;
@@ -51,7 +53,6 @@ public class FWCase extends dbe.DBAddress {
 	}
 
 	public dbe.Case update(dbe.Case name) {
-		ResultSet rs;
 		try {
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());

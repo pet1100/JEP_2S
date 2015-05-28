@@ -1,6 +1,5 @@
 package gui;
-
-import time.Timestamp;
+//@Peter J.
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -28,10 +27,10 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.DefaultTableModel;
 
+import time.Timestamp;
 import dbe.Case;
 import dbe.Client;
 import dbe.Employee;
-import fw.FWcontroller;
 
 public class GUIMain extends GUILanguage {
 
@@ -51,19 +50,7 @@ public class GUIMain extends GUILanguage {
 	private boolean rectangleTrue;
 
 	{
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) { //ser igennem listen af instaleret look and feel
-		        if ("Nimbus".equals(info.getName())) {// er look and feelet Nimbus?
-		            UIManager.setLookAndFeel(info.getClassName());// hvis ja, sæt til nimbus
-		        }
-		    }
-		} catch (Exception e) {
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());// går noget galt i loopet, sæt look and feel til samme som OS
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		lookNFeel();
 		actionListener.login();
 		scrollPane.setVisible(false);
 		defualtPane.setVisible(false);
@@ -640,5 +627,23 @@ public class GUIMain extends GUILanguage {
 			rectangleY = 10;
 		}
 		return r;
+	}
+	
+	//@Ellinor M.
+	private void lookNFeel()
+	{
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) { //ser igennem listen af instaleret look and feel
+		        if ("Nimbus".equals(info.getName())) {// er look and feelet Nimbus?
+		            UIManager.setLookAndFeel(info.getClassName());// hvis ja, sæt til nimbus
+		        }
+		    }
+		} catch (Exception e) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());// går noget galt i loopet, sæt look and feel til samme som OS
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 }

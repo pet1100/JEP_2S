@@ -1,11 +1,11 @@
 package gui;
+//@Peter J.
 
 import java.sql.ResultSet;
 
 import dbe.Case;
 import dbe.Client;
 import dbe.Employee;
-import fw.FWCase;
 import fw.FWcontroller;
 
 public class GUIController

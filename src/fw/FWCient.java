@@ -1,11 +1,16 @@
 package fw;
+//@Jannik E.
 
-
-import dbe.Client;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.sun.rowset.CachedRowSetImpl;
+
+import dbe.Client;
 
 
 public class FWCient extends dbe.DBAddress {

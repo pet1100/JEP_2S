@@ -1,10 +1,6 @@
 package dbe;
 //@Elinor
 
-import java.util.Date;
-
-import time.Timestamp;
-
 public class DBE {
 
 	private int id;

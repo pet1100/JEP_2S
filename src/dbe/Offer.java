@@ -1,9 +1,7 @@
 package dbe;
 //@Elinor
 
-import java.util.*;
-
-import time.Timestamp;
+import java.util.ArrayList;
 
 public class Offer extends Case {
 	private int rentalDays;

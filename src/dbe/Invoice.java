@@ -1,9 +1,4 @@
 package dbe;
-
-import java.sql.Date;
-
-import time.Timestamp;
-
 //@Elinor
 
 public class Invoice extends Case {
