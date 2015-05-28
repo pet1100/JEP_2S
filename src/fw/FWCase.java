@@ -1,6 +1,6 @@
 package fw;
 //@Jannik E.
-
+// This class is used for Cru-d Create read update to database Case
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.sql.Statement;
 
 import com.sun.rowset.CachedRowSetImpl;
 
-public class FWCase extends dbe.DBAddress {
+public class FWCase extends dbe.DBAddress { // Extends because its easiere to get the info
 
-	private Connection con;
+	private Connection con; //Connection
 	Integer numero = 0;
 	Integer sagsid = -1;
 
@@ -30,7 +30,7 @@ public class FWCase extends dbe.DBAddress {
 					getpassword());
 			s = con.createStatement();
 			rs = s.executeQuery("SELECT * FROM mydb.kunder where Kunde_Id = 1 = '"
-					+ id + "' ");
+					+ id + "' ");// min sql Select.
 
 			con.close();
 			s.close();
@@ -38,13 +38,13 @@ public class FWCase extends dbe.DBAddress {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+				
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+			
 		}
 		return rs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr
 					// bynavn kunde_navn kunde_efternavn kundetlf kunde_email
@@ -52,7 +52,7 @@ public class FWCase extends dbe.DBAddress {
 
 	}
 
-	public dbe.Case update(dbe.Case name) {
+	public dbe.Case update(dbe.Case name) {// Takes a dbe object in
 		try {
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
@@ -62,8 +62,8 @@ public class FWCase extends dbe.DBAddress {
 
 			String query = "update sager set Sager_Emne = ?, Sager_Notat = ?, Sager_Aktiv = 1, Fk_Kunde = ?, Fk_Ansvarlig = ?, "
 					+ "Sager_Type = ?, Sager_Adresse = ?, Fk_postnr = ? where Sager_Id = ("
-					+ name.getId() + ")";
-			PreparedStatement preparedStmt = con.prepareStatement(query);
+					+ name.getId() + ")";// updates Query
+			PreparedStatement preparedStmt = con.prepareStatement(query); // using my prepare statements
 			preparedStmt.setString(1, name.getName());
 			preparedStmt.setString(2, name.getNoteInternal());
 			preparedStmt.setInt(3, name.getClient());
@@ -72,7 +72,7 @@ public class FWCase extends dbe.DBAddress {
 			preparedStmt.setString(6, name.getAddress());
 			preparedStmt.setShort(7, name.getZipCode());
 
-			preparedStmt.execute();
+			preparedStmt.execute(); // executes the prepared statements.
 
 			con.close();
 			s.close();
@@ -81,13 +81,13 @@ public class FWCase extends dbe.DBAddress {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+				
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+		
 		}
 		return name;
 
@@ -107,13 +107,13 @@ public class FWCase extends dbe.DBAddress {
 			String query = ("INSERT INTO sager (Sager_OprettetDato)  VALUES (?)");
 
 			PreparedStatement preparedStmt = con.prepareStatement(query,
-					PreparedStatement.RETURN_GENERATED_KEYS);
+					PreparedStatement.RETURN_GENERATED_KEYS);// inserts generated key automaticly into the prepared statement.
 			preparedStmt.setTimestamp(1, ts1);
 
 			preparedStmt.execute();
-			rs = preparedStmt.getGeneratedKeys();
+			rs = preparedStmt.getGeneratedKeys(); // putting the generated key into the ResultSet.
 			if (rs.next()) {
-				sagsid = rs.getInt(1);
+				sagsid = rs.getInt(1);// sets the integer to 
 
 			}
 
@@ -125,19 +125,19 @@ public class FWCase extends dbe.DBAddress {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+			
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+			
 		}
 		return sagsid;
 
 	}
 
-	public ResultSet readAll() {
+	public ResultSet readAll() {// method for getting a result list of cases out.
 		
 		ResultSet rs = null;
 		CachedRowSetImpl crs = null;
@@ -152,7 +152,7 @@ public class FWCase extends dbe.DBAddress {
 				+	" left join medarbejder on sager.Fk_Ansvarlig = Medarbejder_Id"
 				+	" left join kunder on sager.Fk_kunde = Kunde_Id"
 				+	" left join postnr on sager.FK_postnr = postnr"
-				+ 	" order by sager_Id");
+				+ 	" order by sager_Id"); // long sql query with left join to get information from alot of tables in the database.
 
 			 crs = new CachedRowSetImpl();
 			 crs.populate(rs);
@@ -160,17 +160,17 @@ public class FWCase extends dbe.DBAddress {
 			 
 			con.close();
 			s.close();
-		} catch (SQLException sqlex) {
+		} catch (SQLException sqlex) { // sql error Message :)
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+				
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+		
 		} 
 		return crs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
 	

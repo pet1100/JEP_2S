@@ -1,7 +1,7 @@
 package dbe;
-//@Elinor M
-
-public class DBAddress {
+//@Jannik E.
+// this class is used to access database.
+public class DBAddress { 
 
 	private  String JDBC_DRIVER = "com.mysql.jdbc.Driver" ;
 	private  String DATABASE_URL = "jdbc:mysql://localhost/mydb";

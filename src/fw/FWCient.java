@@ -13,14 +13,14 @@ import com.sun.rowset.CachedRowSetImpl;
 import dbe.Client;
 
 
-public class FWCient extends dbe.DBAddress {
+public class FWCient extends dbe.DBAddress { // Extends DBA to use the database connection
 
 	private Connection con;
 	 Integer numero=0;
 	Integer  clientid = -1;
 	
 
-	public ResultSet read(int id) {
+	public ResultSet read(int id) { // read a specific Client where id = the one put in and returns it as a resultSet
 		
 		ResultSet rs = null;
 		CachedRowSetImpl crs = null;
@@ -42,20 +42,20 @@ public class FWCient extends dbe.DBAddress {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+		
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+			
 		} 
 		return crs; // id(skal du ikkebruge navn efternavn tlf email adresse postnr dato
 		
 	
 	}
 
-	public Client update(Client name) {
+	public Client update(Client name) { // Updates Client by taking an object of client in
 		
 		try {
 			Statement s = null;
@@ -68,7 +68,7 @@ public class FWCient extends dbe.DBAddress {
 	
 			 String query = "update kunder set Kunde_navn = ?, Kunde_EfterNavn = ?, Kunde_Tlf = ?, Kunde_Email = ?, Fk_postnr = ? "
 			 		+ " where Kunde_Id = "+name.getId()+"";
-		      PreparedStatement preparedStmt = con.prepareStatement(query);
+		      PreparedStatement preparedStmt = con.prepareStatement(query); // using Prepared statements to insert the objects attributes at the right coloums
 		      preparedStmt.setString(1, name.getName());
 		      preparedStmt.setString(2, name.getLastName());
 		      preparedStmt.setInt(3, name.getTlf());
@@ -78,7 +78,7 @@ public class FWCient extends dbe.DBAddress {
 		      
 		     
 		     
-		      preparedStmt.execute();
+		      preparedStmt.execute(); // executes the Statement
 		 
 		      
 		
@@ -93,21 +93,21 @@ public class FWCient extends dbe.DBAddress {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+			
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+		
 		}
 		return name;
 		
 	}
 
-	public int create() {
+	public int create() { // Creates the Client and Returns an Integer with the Id
 		java.util.Date today = new java.util.Date();
-		java.sql.Timestamp ts1 = new java.sql.Timestamp(today.getTime());
+		java.sql.Timestamp ts1 = new java.sql.Timestamp(today.getTime());// gets the time now (windows time) in sql format
 		ResultSet rs ;
 		try {
 			Statement s = null;
@@ -118,7 +118,7 @@ public class FWCient extends dbe.DBAddress {
 	
 			 String query = ("INSERT INTO kunder (Kunde_Dato)  VALUES (?)");
 			
-			 PreparedStatement preparedStmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+			 PreparedStatement preparedStmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS); // Places the generated key in prepared statement
 			 preparedStmt.setTimestamp(1, ts1);
 			 
 			 
@@ -127,7 +127,7 @@ public class FWCient extends dbe.DBAddress {
 		     
 		     
 		      preparedStmt.execute();
-		   rs = preparedStmt.getGeneratedKeys();
+		   rs = preparedStmt.getGeneratedKeys(); // puts the generated key into Resultset
 		     if (rs.next()){
 		    	 clientid = rs.getInt(1);
 		           
@@ -137,26 +137,26 @@ public class FWCient extends dbe.DBAddress {
 
 		     
 		   
-			rs.close();
+			rs.close(); 
 			con.close();
 			s.close();
-			System.out.println("sat ind");
+		
 		} catch (SQLException sqlex) {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+				
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+		
 		}
 		return clientid;
 	}
 
-	public ResultSet readAll() {
+	public ResultSet readAll() { // Read all Clients
 		
 		ResultSet rs = null;
 		CachedRowSetImpl crs = null;
@@ -169,7 +169,7 @@ public class FWCient extends dbe.DBAddress {
 			s = con.createStatement();
 			 rs = s.executeQuery("select kunder.Kunde_Navn,  kunder.Kunde_EfterNavn,  kunder.Kunde_Tlf,   kunder.Kunde_Email,  kunder.Kunde_Adresse,  kunder.Kunde_Dato, postnr.postnr, postnr.By, kunder.Kunde_Id from kunder"
 			 		+ " left join postnr on postnr.postnr = kunder.Fk_postnr "
-			 		+ " order by Kunde_Id");
+			 		+ " order by Kunde_Id"); // Sql statements with left join to get acces to all the diffrent coloums, order it by Client id
 
 			 crs = new CachedRowSetImpl();
 			 crs.populate(rs);
@@ -182,13 +182,13 @@ public class FWCient extends dbe.DBAddress {
 			try {
 				System.out.println(sqlex.getMessage());
 				con.close();
-				System.exit(1); // terminate program
+				
 			} catch (SQLException sql) {
 			}
 		} catch (ClassNotFoundException noClass) {
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			System.exit(1); // terminate program
+			
 		} 
 		return crs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
 	}

@@ -11,20 +11,20 @@ import dbe.DBAddress;
 import dbe.Employee;
 
 public class FWcontroller {
-	public static  FWCase cs = new FWCase () ;
-	public static FWCient ci = new FWCient ();
-	public static FWEmployee em = new FWEmployee();
-	static DBAddress db = new DBAddress();;
+	public static  FWCase cs = new FWCase () ; // Controller for Case
+	public static FWCient ci = new FWCient ();// Controller for Client
+	public static FWEmployee em = new FWEmployee();// Controller for Employe
+	static DBAddress db = new DBAddress();;// Controller for DBA
 	static Connection con;
 	
 	
-
-	public static ResultSet caseRead(int id) {
+// read methods
+	public static ResultSet caseRead(int id) { //reads case where the caseid is the same as the parameter id
 		
 		return (cs.read(id));
 		
 	}
-	public static ResultSet clientRead(int id) {
+	public static ResultSet clientRead(int id) { 
 		
 		return (ci.read(id));
 		
@@ -34,6 +34,8 @@ public class FWcontroller {
 		return (em.read(id));
 		
 	}
+	
+	// Read all methods
 
 	public static ResultSet caseReadAll() {
 		return(cs.readAll());
@@ -45,7 +47,7 @@ public class FWcontroller {
 		return(em.readAll());
 	}
 
-
+// update Methods
 	public static void caseUpdate(Case c) {
 		cs.update(c);
 	}
@@ -56,6 +58,8 @@ public class FWcontroller {
 		em.update(c);
 	}
 
+	
+	//Create Methods
 	public static Integer createCase() {
 	
 		return (cs.create());
