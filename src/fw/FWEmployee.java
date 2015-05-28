@@ -63,16 +63,14 @@ public class FWEmployee extends DBAddress {
 					getpassword());
 			s = con.createStatement();
 			
-			 String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Userlevel = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Userlevel = ?, Medarbejder_Adresse = ? "
+			 String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Adresse = ? "
 			 		+ " where medarbejder_Id = ("+name.getId()+")";
 		      PreparedStatement preparedStmt = con.prepareStatement(query);
 		      preparedStmt.setString(1, name.getName());
 		      preparedStmt.setString(2, name.getLastName());
-		      preparedStmt.setInt(3, name.getTlf());
-		      preparedStmt.setString(4, name.getPassWord());
-		      preparedStmt.setInt(5, name.getZipCode());
-		      preparedStmt.setByte(6, name.getUserlevel());
-		      preparedStmt.setString(7, name.getAddress());
+		      preparedStmt.setString(3, name.getPassWord());
+		      preparedStmt.setInt(4, name.getZipCode());
+		      preparedStmt.setString(5, name.getAddress());
 		 
 		      
 		     

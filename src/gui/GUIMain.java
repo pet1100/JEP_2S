@@ -354,9 +354,7 @@ public class GUIMain extends GUILanguage {
 				}
 			});
 			defualtPane.add(newClient);
-
-			// makeRectangle();
-
+			
 			JButton newCase = new JButton(caseLang);
 			newCase.setBounds(makeRectangleForNew());
 			newCase.addActionListener(new ActionListener() {
@@ -392,6 +390,7 @@ public class GUIMain extends GUILanguage {
 	private JTextField writeTitleName = null;
 	private JTextField writeEmail = null;
 	private JTextField writeCaseType = null;
+	private JTextField writePhoneNumber = null;
 
 	protected void showOne(int type, int ID) {
 		String firstNameS = "";
@@ -428,9 +427,6 @@ public class GUIMain extends GUILanguage {
 			case 2:
 				try{
 				ResultSet rs = guiController.workerRead(ID);
-				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-					System.out.println(rs.getMetaData().getColumnName(i));
-				}
 				if (rs.next()) {
 					firstNameS = rs.getString(2);
 					lastNameS = rs.getString(3);
@@ -491,13 +487,16 @@ public class GUIMain extends GUILanguage {
 				writeTitleName.setBounds(makeRectangleForShowOne());
 				defualtPane.add(writeTitleName);
 			}
+			if(type != 2)
+			{
 			JLabel PhoneNumber = new JLabel(phoneLang);
 			PhoneNumber.setBounds(makeRectangleForShowOne());
 			defualtPane.add(PhoneNumber);
-
-			JTextField writePhoneNumber = new JTextField(phoneS);
+			
+			writePhoneNumber = new JTextField(phoneS);
 			writePhoneNumber.setBounds(makeRectangleForShowOne());
 			defualtPane.add(writePhoneNumber);
+			}
 
 			JLabel postNrLabel = new JLabel(postNrLang);
 			postNrLabel.setBounds(makeRectangleForShowOne());
@@ -609,7 +608,7 @@ public class GUIMain extends GUILanguage {
 		rectangleY = 10;
 		rectangleX = 20;
 		rectangleW = 100;
-		rectangleH = 20;
+		rectangleH = 30;
 		rectangleTrue = true;
 	}
 
@@ -617,7 +616,7 @@ public class GUIMain extends GUILanguage {
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
 				rectangleH);
 		if (rectangleTrue) {
-			rectangleY += 20;
+			rectangleY += 30;
 			rectangleTrue = false;
 			if (rectangleY + 60 > paneHeight) {
 				rectangleX += 120;
@@ -625,7 +624,7 @@ public class GUIMain extends GUILanguage {
 				rectangleTrue = true;
 			}
 		} else {
-			rectangleY += 30;
+			rectangleY += 40;
 			rectangleTrue = true;
 		}
 		return r;
