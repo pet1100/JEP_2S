@@ -1,5 +1,6 @@
 package fw;
-//@Jannik E.
+
+// @Jannik E.
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,176 +14,219 @@ import com.sun.rowset.CachedRowSetImpl;
 import dbe.DBAddress;
 import dbe.Employee;
 
-public class FWEmployee extends DBAddress { // Extends to get acces to all methods in DBA
+public class FWEmployee extends DBAddress
+{ // Extends to get acces to all methods in DBA
 
 	private Connection con;
-	 Integer numero=0;
-	Integer  clientid = -1;
-	
+	Integer numero = 0;
+	Integer clientid = -1;
 
-	public ResultSet read(int id) { // reads the Employee id where it equals the inserted int.
-		
+	public ResultSet read(int id)
+	{ // reads the Employee id where it equals the inserted int.
+
 		ResultSet rs = null;
 		CachedRowSetImpl crs = null;
-		
-		try {
+
+		try
+		{
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			 rs = s.executeQuery("Select * from Medarbejder WHERE Medarbejder_Id = '"+id+"' "
-			 		+ " order by Medarbejder_Id"); // Selects only the Employe where id == employeid
+			rs = s.executeQuery("Select * from Medarbejder WHERE Medarbejder_Id = '"
+					+ id + "' " + " order by Medarbejder_Id"); // Selects only
+																// the Employe
+																// where id ==
+																// employeid
 
-			 crs = new CachedRowSetImpl();
-			 crs.populate(rs);
+			crs = new CachedRowSetImpl();
+			crs.populate(rs);
 
 			con.close();
 			s.close();
-		} catch (SQLException sqlex) {
-			try {
+		}
+		catch (SQLException sqlex)
+		{
+			try
+			{
 				System.out.println(sqlex.getMessage());
 				con.close();
-				
-			} catch (SQLException sql) {
+
 			}
-		} catch (ClassNotFoundException noClass) {
+			catch (SQLException sql)
+			{}
+		}
+		catch (ClassNotFoundException noClass)
+		{
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			
-		} 
-		return crs; // id(skal du ikkebruge navn efternavn tlf email adresse postnr dato
-		
-	
+
+		}
+		return crs; // id(skal du ikkebruge navn efternavn tlf email adresse
+					// postnr dato
+
 	}
 
-	public Employee update(Employee name) { // updates emplyee takes in an dbe object
-		
-		try {
+	public Employee update(Employee name)
+	{ // updates emplyee takes in an dbe object
+
+		try
+		{
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			
-			 String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Adresse = ? "
-			 		+ " where medarbejder_Id = ("+name.getId()+")"; // ? is preparedstatements
-		      PreparedStatement preparedStmt = con.prepareStatement(query);
-		      preparedStmt.setString(1, name.getName());
-		      preparedStmt.setString(2, name.getLastName());
-		      preparedStmt.setString(3, name.getPassWord());
-		      preparedStmt.setInt(4, name.getZipCode());
-		      preparedStmt.setString(5, name.getAddress());
-		 
-		      
-		     
-		     
-		      preparedStmt.execute();// executes the prepared statements
-		 
-		      
-		   
-			
+
+			String query = "update Medarbejder set Medarbejder_Navn = ?, Medarbejder_EfterNavn = ?, Medarbejder_Password = ?, FK_postnr = ?, Medarbejder_Adresse = ? "
+					+ " where medarbejder_Id = (" + name.getId() + ")"; // ? is
+																		// preparedstatements
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			preparedStmt.setString(1, name.getName());
+			preparedStmt.setString(2, name.getLastName());
+			preparedStmt.setString(3, name.getPassWord());
+			preparedStmt.setInt(4, name.getZipCode());
+			preparedStmt.setString(5, name.getAddress());
+
+			preparedStmt.execute();// executes the prepared statements
+
 			con.close();
 			s.close();
-			
-		} catch (SQLException sqlex) {
-			try {
+
+		}
+		catch (SQLException sqlex)
+		{
+			try
+			{
 				System.out.println(sqlex.getMessage());
 				con.close();
-			
-			} catch (SQLException sql) {
+
 			}
-		} catch (ClassNotFoundException noClass) {
+			catch (SQLException sql)
+			{}
+		}
+		catch (ClassNotFoundException noClass)
+		{
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			
+
 		}
 		return name;
-		
+
 	}
 
-	public int create() { // Create an Employee
+	public int create()
+	{ // Create an Employee
 		java.util.Date today = new java.util.Date();
-		java.sql.Timestamp ts1 = new java.sql.Timestamp(today.getTime()); // get current windows time in sql format
-		ResultSet rs ;
-		try {
+		java.sql.Timestamp ts1 = new java.sql.Timestamp(today.getTime()); // get
+																			// current
+																			// windows
+																			// time
+																			// in
+																			// sql
+																			// format
+		ResultSet rs;
+		try
+		{
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-	
-			 String query = ("INSERT INTO medarbejder (Medarbejder_Dato)  VALUES (?)");
-			
-			 PreparedStatement preparedStmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS); // saves auto generated keys in prepared statement
-			 preparedStmt.setTimestamp(1, ts1); // sets time in as a prepared statement
-			 
-			 
-		    
-		      
-		     
-		     
-		      preparedStmt.execute();
-		   rs = preparedStmt.getGeneratedKeys(); // sets Resultset to be the same as the preparedstatement
-		     if (rs.next()){
-		    	 clientid = rs.getInt(1); // sets the integer to be the autogenerated key
-		           
-		        }
-		      
-		
 
-		     
-		   
+			String query = ("INSERT INTO medarbejder (Medarbejder_Dato)  VALUES (?)");
+
+			PreparedStatement preparedStmt = con.prepareStatement(query,
+					PreparedStatement.RETURN_GENERATED_KEYS); // saves auto
+																// generated
+																// keys in
+																// prepared
+																// statement
+			preparedStmt.setTimestamp(1, ts1); // sets time in as a prepared
+												// statement
+
+			preparedStmt.execute();
+			rs = preparedStmt.getGeneratedKeys(); // sets Resultset to be the
+													// same as the
+													// preparedstatement
+			if (rs.next())
+			{
+				clientid = rs.getInt(1); // sets the integer to be the
+											// autogenerated key
+
+			}
+
 			rs.close();
 			con.close();
 			s.close();
-		
-		} catch (SQLException sqlex) {
-			try {
+
+		}
+		catch (SQLException sqlex)
+		{
+			try
+			{
 				System.out.println(sqlex.getMessage());
 				con.close();
-			
-			} catch (SQLException sql) {
+
 			}
-		} catch (ClassNotFoundException noClass) {
+			catch (SQLException sql)
+			{}
+		}
+		catch (ClassNotFoundException noClass)
+		{
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-			
+
 		}
 		return clientid; // Returns the integer
 	}
 
-	public ResultSet readAll() {
-	
+	public ResultSet readAll()
+	{
+
 		ResultSet rs = null;
 		CachedRowSetImpl crs = null;
-		
-		try {
+
+		try
+		{
 			Statement s = null;
 			Class.forName(getJDBC_DRIVER());
 			con = DriverManager.getConnection(getDATABASE_URL(), getUsername(),
 					getpassword());
 			s = con.createStatement();
-			 rs = s.executeQuery("select * from medarbejder"
-			 		+ " left join postnr on medarbejder.FK_postnr = postnr.postnr"); // selects all from medarbejder table
-			 
-			 crs = new CachedRowSetImpl();
-			 crs.populate(rs); // puts Resultset into CRS
-			
+			rs = s.executeQuery("select * from medarbejder"
+					+ " left join postnr on medarbejder.FK_postnr = postnr.postnr"); // selects
+																						// all
+																						// from
+																						// medarbejder
+																						// table
+
+			crs = new CachedRowSetImpl();
+			crs.populate(rs); // puts Resultset into CRS
+
 			con.close();
 			s.close();
-		} catch (SQLException sqlex) {
-			try {
+		}
+		catch (SQLException sqlex)
+		{
+			try
+			{
 				System.out.println(sqlex.getMessage());
 				con.close();
-			
-			} catch (SQLException sql) {
+
 			}
-		} catch (ClassNotFoundException noClass) {
+			catch (SQLException sql)
+			{}
+		}
+		catch (ClassNotFoundException noClass)
+		{
 			System.err.println("Driver Class not found");
 			System.out.println(noClass.getMessage());
-		
-		} 
-		return crs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr bynavn kunde_navn kunde_efternavn kundetlf kunde_email medarbejder_navn medarbejder_efternavn
+
+		}
+		return crs; // emne notat oprettelsesdato aktiv sag_adresse sagpostnr
+					// bynavn kunde_navn kunde_efternavn kundetlf kunde_email
+					// medarbejder_navn medarbejder_efternavn
 	}
 }

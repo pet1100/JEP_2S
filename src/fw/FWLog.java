@@ -1,15 +1,19 @@
 package fw;
-//@Jannik E.
+
+// @Jannik E.
 
 import dbe.DBAddress;
 
-public class FWLog extends DBAddress {
+public class FWLog extends DBAddress
+{
 
-	public void Update() {
+	public void Update()
+	{
 		throw new UnsupportedOperationException();
 	}
 
-	public void Read() {
+	public void Read()
+	{
 		throw new UnsupportedOperationException();
 	}
 }

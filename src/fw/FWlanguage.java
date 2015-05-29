@@ -1,13 +1,16 @@
 package fw;
-//@Jannik E.
+
+// @Jannik E.
 
 import java.util.ArrayList;
 
 import dbe.DBAddress;
 
-public class FWlanguage extends DBAddress {
+public class FWlanguage extends DBAddress
+{
 
-	public ArrayList<String> read() {
+	public ArrayList<String> read()
+	{
 		throw new UnsupportedOperationException();
 	}
 }

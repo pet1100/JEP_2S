@@ -1,10 +1,11 @@
 package gui;
-//@Peter J.
+
+// @Peter J.
 
 public class GUIRun
 {
 	public static void main(String[] args)
 	{
-	    GUIMain gm = new GUIMain();
+		GUIMain gm = new GUIMain();
 	}
 }

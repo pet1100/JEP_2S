@@ -33,7 +33,8 @@ import dbe.Case;
 import dbe.Client;
 import dbe.Employee;
 
-// This class is making all the GUI (except the login) and a few methodes that helps the GUI (like
+// This class is making all the GUI (except the login) and a few methodes that
+// helps the GUI (like
 // makenewrectagnle, and look n' feel)
 public class GUIMain extends GUILanguage
 {
@@ -53,7 +54,8 @@ public class GUIMain extends GUILanguage
 	private int rectangleH;
 	private boolean rectangleTrue;
 
-	//Do the following code on load. (make the look and feel, make a login and then make the program GUI.)
+	// Do the following code on load. (make the look and feel, make a login and
+	// then make the program GUI.)
 	{
 		lookNFeel();
 		actionListener.login();
@@ -70,8 +72,9 @@ public class GUIMain extends GUILanguage
 		setResizable(false);
 		setTitle(menuLang);
 		makeMenuButtons();
-		
-		//Add window listener, so we can make the window close in a specific way.
+
+		// Add window listener, so we can make the window close in a specific
+		// way.
 		addWindowListener(new WindowListener()
 		{
 			@Override
@@ -132,14 +135,14 @@ public class GUIMain extends GUILanguage
 			return false;
 		}
 	};
-	
-	//Close operation when pressing the x button.
+
+	// Close operation when pressing the x button.
 	protected void closeSystem()
 	{
 		System.exit(1);
 	}
 
-	//Make the buttons on the menu bar on the bottom of the screen.
+	// Make the buttons on the menu bar on the bottom of the screen.
 	private void makeMenuButtons()
 	{
 		JPanel menuButtons = new JPanel();
@@ -202,8 +205,8 @@ public class GUIMain extends GUILanguage
 		menuButtons.add(makeNew);
 		add(menuButtons, BorderLayout.SOUTH);
 	}
-	
-	//Show a tabel of all workers.
+
+	// Show a tabel of all workers.
 	protected void showWorkerList()
 	{
 		if (scrollPaneThere())
@@ -255,7 +258,7 @@ public class GUIMain extends GUILanguage
 		}
 	}
 
-	//Show a tabel of all cases.
+	// Show a tabel of all cases.
 	protected void showCaseList()
 	{
 		if (scrollPaneThere())
@@ -309,7 +312,7 @@ public class GUIMain extends GUILanguage
 		}
 	}
 
-	//Show a tabel of all clients.
+	// Show a tabel of all clients.
 	protected void showClientList()
 	{
 		if (scrollPaneThere())
@@ -363,7 +366,7 @@ public class GUIMain extends GUILanguage
 		}
 	}
 
-	//check the scrollpane if it is visible.
+	// check the scrollpane if it is visible.
 	private boolean scrollPaneThere()
 	{
 		scrollPane.removeAll();
@@ -375,8 +378,8 @@ public class GUIMain extends GUILanguage
 		}
 		return true;
 	}
-	
-	//Show a GUI for create new client, worker or case.
+
+	// Show a GUI for create new client, worker or case.
 	protected void showNew()
 	{
 		defualtPane.removeAll();
@@ -462,7 +465,7 @@ public class GUIMain extends GUILanguage
 	private JTextField writeCaseType = null;
 	private JTextField writePhoneNumber = null;
 
-	//Show a GUI for one case, client or worker with info.
+	// Show a GUI for one case, client or worker with info.
 	protected void showOne(int type, int ID)
 	{
 		String firstNameS = "";
@@ -684,22 +687,22 @@ public class GUIMain extends GUILanguage
 		}
 	}
 
-	//Show main menu.
+	// Show main menu.
 	protected void showMenu()
 	{
 		defualtPane.setVisible(false);
 		scrollPane.setVisible(false);
 	}
 
-	//Save the worker with a new object.
+	// Save the worker with a new object.
 	protected void saveWorker(int ID, String firstName, String address,
 			short postNr, int phone, String lastName)
 	{
 		guiController.workerUpdate(new Employee(ID, firstName, address, postNr,
 				phone, lastName));
 	}
-	
-	//Save the client with a new object.
+
+	// Save the client with a new object.
 	protected void saveClient(int phoneNumber, String firstName,
 			String lastName, short postNr, String address, String email, int ID)
 	{
@@ -707,15 +710,15 @@ public class GUIMain extends GUILanguage
 				(short) postNr, phoneNumber, lastName, email));
 	}
 
-	//Save the case with a new object.
+	// Save the case with a new object.
 	protected void saveCase(int ID, String title, String address, short postNr,
 			String caseType, byte department, int employeeID, int clientID)
 	{
 		guiController.updateCase(new Case(ID, title, address, postNr, caseType,
 				department, employeeID, clientID));
 	}
-	
-	//reset the rectangle values.
+
+	// reset the rectangle values.
 	private void defualtPaneRectangleReset()
 	{
 		rectangleY = 10;
@@ -725,7 +728,7 @@ public class GUIMain extends GUILanguage
 		rectangleTrue = true;
 	}
 
-	//Makes a rectanle for one case/client or worker.
+	// Makes a rectanle for one case/client or worker.
 	private Rectangle makeRectangleForShowOne()
 	{
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
@@ -748,8 +751,9 @@ public class GUIMain extends GUILanguage
 		}
 		return r;
 	}
-	
-	//Makes a rectanle for the buttons in new (where new case, client and worker is).
+
+	// Makes a rectanle for the buttons in new (where new case, client and
+	// worker is).
 	private Rectangle makeRectangleForNew()
 	{
 		Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleW,
@@ -765,7 +769,7 @@ public class GUIMain extends GUILanguage
 	}
 
 	// @Ellinor M.
-	//Makes the look and feel set to nimbus unless it isn't installed.
+	// Makes the look and feel set to nimbus unless it isn't installed.
 	private void lookNFeel()
 	{
 		try
