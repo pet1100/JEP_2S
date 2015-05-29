@@ -8,7 +8,7 @@ import dbe.Client;
 import dbe.Employee;
 import fw.FWcontroller;
 
-//
+//A controller that comunicate with the filewrapper.
 public class GUIController
 {
 	

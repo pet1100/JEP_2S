@@ -765,6 +765,7 @@ public class GUIMain extends GUILanguage
 	}
 
 	// @Ellinor M.
+	//Makes the look and feel set to nimbus unless it isn't installed.
 	private void lookNFeel()
 	{
 		try
